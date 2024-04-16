@@ -1,1 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="test visualisation de données">
+    <meta name="keywords" content="Leafle.js">
+    <meta name="author" content="GOYET Christopher">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Résultats présidentielle</title>
+    <link rel="shortcut icon" href="https://leafletjs.com/docs/images/favicon.ico">
+
+    <!-- leaflet -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<!-- leaflet -->
+
+	<script src="https://kit.fontawesome.com/83642594c1.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="backward-button.js"></script>
+	<script type="text/javascript" src="color-gradient.js"></script>
+
+	<!-- mes données -->
+	<script src="data/departements.json"></script>
+	<script src="data/circonscriptions.json"></script>
+	<script src="data/resultats_circo.json"></script>
+	<script src="data/BV_circo06.json"></script>
+	<script src="data/resultats_pres2022.json"></script>
+	<!-- mes données -->
+
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		html, body, #map {
+			height: 100%;
+			width: 100vw;
+		}
+		.info {
+		    padding: 6px 8px;
+		    font: 14px/16px Arial, Helvetica, sans-serif;
+		    background: white;
+		    background: rgba(255,255,255,0.8);
+		    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		    border-radius: 5px;
+		}
+		.info h4 {
+		    margin: 0 0 5px;
+		    color: #777;
+		}
+		.legend {
+		    line-height: 18px;
+		    color: #555;
+		}
+		.legend i {
+		    width: 18px;
+		    height: 18px;
+		    float: left;
+		    margin-right: 8px;
+		    opacity: 0.7;
+		}
+	</style>
+
+	</head>
+
+	<body class="bg-dark busy">
+		<div id="map">></div>
+	</body>
+
+	<script>
+		var bleumax = '#032dff';//'#08519c'
+		var vertmax = '#51f542';
+		var blancmin = '#ffffff';
+		const grad = new Gradient(vertmax, blancmin);
+		grad.append_at(vertmax, 0.2);
+		grad.append_at(bleumax, 0.2);
+		const map = L.map('map').setView([46.5, 2.5], 6);
+		const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '© OpenStreetMap'
+		}).addTo(map);
+
+		var backbutton = new L.Control.BackButton()
+		backbutton.addTo(map);
+
+		function dept_ajouter_resultats(){
+			var liste_voix_zemmour = [];
+			for (var e of departements){
+				var props = e.properties;
+				var code_dep = props.code_dep;
+				var nb_voix = 0;
+				var exprimes = 0;
+				if (resultats_circo[code_dep]){
+					dept_res = resultats_circo[code_dep];
+					for (var num_circo in dept_res){
+						if (num_circo=="nom_dep") { continue; };
+						var circo = dept_res[num_circo];
+						exprimes += circo.Exprimes;
+						nb_voix += circo.voix[5];
+					}
+					liste_voix_zemmour.push(nb_voix);
+					props.nb_voix = nb_voix;
+					props.label = props.nom_dep;
+					props.Perc_Zemmour = Math.floor(nb_voix/exprimes*10000)/100;
+				}else{
+					console.log("No resultats_circo[code_dep]"+code_dep);
+				}
+			};
+			liste_voix_zemmour.sort(function(a, b){return a-b});
+			for (var e of departements){
+				var n = liste_voix_zemmour.indexOf(e.properties.nb_voix);
+				e.properties.color = grad.getAt(1-(n+1)/liste_voix_zemmour.length);
+			};
+		};
+		function circo_ajouter_resultats(){
+			for (var code_dep in circonscriptions){
+				var liste_voix_zemmour = [];
+				for (var c of circonscriptions[code_dep]){
+					var props = c.properties;
+					var num_circo = props.num_circo;
+					var circo_res = resultats_circo[code_dep][num_circo];
+					var exprimes = circo_res.Exprimes;
+					var nb_voix = circo_res.voix[5];
+					props.label = props.nom_circo;
+					props.nb_voix = nb_voix;
+					liste_voix_zemmour.push(nb_voix);
+					//console.log(nb_voix+" ; "+exprimes);
+					if (exprimes==0){console.log("Circo à 0 ???")};
+					props.Perc_Zemmour = Math.floor(nb_voix/exprimes*10000)/100;
+				}
+				liste_voix_zemmour.sort(function(a, b){return a-b});
+				for (var c of circonscriptions[code_dep]){
+					var n = liste_voix_zemmour.indexOf(c.properties.nb_voix);
+					c.properties.color = grad.getAt(1-(n+1)/liste_voix_zemmour.length);
+				}
+			}
+		};
+		function bv_ajouter_resultats(){
+			for (var id_circo in bv_circo06){
+				var nb_bv = Object.keys(bv_circo06[id_circo]).length;
+				for (var bv of bv_circo06[id_circo]){
+					var props = bv.properties;
+					var code_dep = props.code_dep;
+					var code_commune = props.code_commune;
+					var num_bureau = props.num_bureau;
+					var bv_res = resultats_bv[code_dep][code_commune][num_bureau];
+					var exprimes = bv_res.Exprimes;
+					var nb_voix_zemmour = bv_res.voix[5].voix;
+					props.Inscrits = bv_res.Inscrits;
+					props.Abstentions = bv_res.Abstentions;
+					props.Votants = bv_res.Votants;
+					props.Blancs = bv_res.Blancs;
+					props.Nuls = bv_res.Nuls;
+					props.Exprimes = exprimes
+					props.nbTotalBvCirco = nb_bv;
+					props.resultats = bv_res.voix;
+					props.label = props.nom_commune+"<br>bureau "+num_bureau;
+					for (var cand of props.resultats){
+						if (exprimes!=0){
+							cand.perc = Math.floor(cand.voix/exprimes*10000)/100;
+						}else{
+							cand.perc = 0;
+						}
+					}
+					props.Perc_Zemmour = props.resultats[5].perc;
+					props.nb_voix = props.resultats[5].voix;
+					props.color = grad.getAt(props.resultats[5].classBVCirco/nb_bv);
+				}
+			}
+		};
+		function getColor(p) {
+			//console.log(p);
+			return grad.getAt(p);
+		    // return p > 13 ? '#08519c' :
+		    //        p > 10  ? '#3182bd' :
+		    //        p > 7  ? '#6baed6' :
+		    //        p > 5  ? '#bdd7e7' :
+		    //                   '#eff3ff';
+		};
+		function getdefaultStyle(feature){
+			return {
+			        fillColor: feature.properties.color,
+			        weight: 2,
+			        opacity: 1,
+			        color: 'white',
+			        dashArray: '3',
+			        fillOpacity: 0.7
+			    	};
+		};
+		function highlightFeature(e) {
+		    var layer = e.target;
+		    layer.setStyle({
+		        weight: 5,
+		        color: 'black',
+		        dashArray: '',
+		        fillOpacity: 0.7
+		    });
+		    layer.bringToFront();
+		    info.update(layer.feature.properties);
+		};
+		function resetHighlight(e) {
+			var layer = e.target;
+			layer.setStyle(getdefaultStyle(layer.feature));
+			info.update();
+		};
+		function zoomToFeature(e) {
+			var layer = e.target;
+			layer.setStyle(getdefaultStyle(layer.feature));
+    		map.fitBounds(layer.getBounds());
+		};
+		function zoomToDepartement(e) {
+			console.log(e);
+			var layer = e.target;
+			var feature = e.layer.feature;
+			layer.remove();
+			var circolayers = circosGEOjsonLayer[feature.properties.code_dep];
+			circolayers.addTo(map);
+			backbutton.goForward(layer, circolayers);
+
+		};
+		function zoomToCirco(e) {
+			console.log(e);
+			var layer = e.target;
+			var feature = e.layer.feature;
+			layer.remove();
+			var bvlayers = bvGEOjsonLayer[feature.properties.id_circo];
+			bvlayers.addTo(map);
+			backbutton.goForward(layer, bvlayers);
+		};
+		function onEachFeature(feature, layer) {
+			layer.on({
+		        mouseover: highlightFeature,
+		        mouseout: resetHighlight,
+		        click: zoomToFeature
+		    });
+		    /*if (feature.properties && feature.properties.nom_dep) {
+		    	if (feature.properties.code_dep){		    		
+		    		var nb_voix = compute_nb_voix(feature.properties.code_dep);
+		    		feature.properties.Perc_Zemmour = nb_voix;
+		    		layer.bindPopup(feature.properties.nom_dep+"<br/>"+nb_voix+"%");
+		    	}else{
+		    		layer.bindPopup(feature.properties.nom_dep);
+		    	};
+		    };*/
+		   	//feature.properties.Perc_Zemmour = compute_nb_voix(feature.properties.code_dep);
+		    layer.setStyle(getdefaultStyle(feature));
+		};
+		dept_ajouter_resultats();
+		circo_ajouter_resultats();
+		bv_ajouter_resultats();
+		var deptsGEOjsonLayer = L.geoJSON(departements, {onEachFeature: onEachFeature});
+		deptsGEOjsonLayer.addTo(map);
+		deptsGEOjsonLayer.on({click:zoomToDepartement});
+		var circosGEOjsonLayer = {};
+		for (var cd in circonscriptions){
+			circosGEOjsonLayer[cd] = L.geoJSON(circonscriptions[cd], {onEachFeature: onEachFeature});
+			if (cd =="06"){
+				circosGEOjsonLayer[cd].on({click:zoomToCirco});
+			};
+		};
+		var bvGEOjsonLayer = {};
+		for (var id_circo in bv_circo06){
+			bvGEOjsonLayer[id_circo] = L.geoJSON(bv_circo06[id_circo],{onEachFeature: onEachFeature});
+		}
+
+		// Adding a Custom Info Control
+		var info = L.control();
+		info.onAdd = function (map) {
+		    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+		    this.update();
+		    return this._div;
+		};
+		// method that we will use to update the control based on feature properties passed
+		info.update = function (props) {
+		    this._div.innerHTML = '<h4>Résultats Zemmour </h4>' +  (props ?
+		        '<b>' + props.label + ':</b></br>Pourcentage : ' + props.Perc_Zemmour + '%' +'</br>Nombre voix :'+props.nb_voix
+		        : 'Départements');
+		};
+		info.addTo(map);
+		
+		// Adding a Custom Legend Control
+		var legend = L.control({position: 'bottomleft'});
+		legend.onAdd = function (map) {
+    		var div = L.DomUtil.create('div', 'info legend');
+
+    		var x = 0;
+			var dx = 0.1;
+			// '#ff0000','#ff7f00','#ffff00',
+			var html = '';
+			var width = 100;
+			while (x < 1) {
+  				var color = grad.getAt(1-x);
+  				html += '<div style="position:relative;height:10px;display:inline-block;width:'+(dx*width)+'px;overflow:hidden;background:'+color+'">&nbsp;</div>';
+  				//if (x==0){html +='<span style="position:absolute;bottom:10px;right:0;">0</span>';};
+  				x+=dx;
+
+			};
+			div.innerHTML = html
+			return div;
+
+        	grades = [0, 5, 7, 10, 13],
+        	labels = [];
+		    // loop through our density intervals and generate a label with a colored square for each interval
+    		for (var i = 0; i < grades.length; i++) {
+        		div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' + grades[i];
+        		if (grades[i + 1]){
+        			div.innerHTML +='&ndash;' + grades[i + 1] + '<br>';
+        		}else{
+        			div.innerHTML +='+';
+        		};
+    		};
+  			return div;
+		};
+		legend.addTo(map);
+
+		// map.locate({setView: true, maxZoom: 16});
+		// function onLocationFound(e) {
+    	// 	var radius = e.accuracy;
+    	// 	var position = e.latlng;
+    	// 	L.marker(position).addTo(map).bindPopup("Vous êtes dans un rayon de " + radius + " mètres de ce point").openPopup();
+    	// 	L.circle(position, radius).addTo(map);
+		// }
+		// map.on('locationfound', onLocationFound);
+
+
+		// var x = 0;
+		// var dx = 0.001;
+		// // '#ff0000','#ff7f00','#ffff00',
+		// var html = '';
+		// var width = window.innerWidth - 100;
+		// while (x < 1) {
+  		// 	var color = grad.getAt(x);
+  		// 	html += '<div style="position:relative;height:100px;display:inline-block;width:'+(dx*width)+'px;overflow:hidden;background:'+color+'">&nbsp;</div>';
+  		// 	x+=dx;
+		// };
+		// var el = document.createElement('div');
+		// el.innerHTML = html;
+		// document.body.appendChild(el);
+
+	</script>
+	<!-- mes données -->
+	
+	<!-- mes données -->
+
+</html>
