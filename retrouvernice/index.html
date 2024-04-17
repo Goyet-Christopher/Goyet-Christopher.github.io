@@ -15,9 +15,15 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<!-- leaflet -->
 
+	<!-- leaflet-SidePanel from https://github.com/maxwell-ilai/Leaflet.SidePanel/tree/main -->
+	<script type="text/javascript" src="./leaflet-SidePanel/dist/leaflet-sidepanel.min.js"></script>
+	<link rel="stylesheet" href="./leaflet-SidePanel/dist/leaflet-sidepanel.css">
+	<!-- leaflet-SidePanel -->
+
 	<script src="https://kit.fontawesome.com/83642594c1.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="backward-button.js"></script>
 	<script type="text/javascript" src="color-gradient.js"></script>
+	
 
 	<!-- mes données -->
 	<script src="data/departements.json"></script>
@@ -34,7 +40,19 @@
 		}
 		html, body, #map {
 			height: 100%;
-			width: 100vw;
+			width: 100%;
+		}
+
+		.legend {
+		    line-height: 18px;
+		    color: #555;
+		}
+		.legend i {
+		    width: 18px;
+		    height: 18px;
+		    float: left;
+		    margin-right: 8px;
+		    opacity: 0.7;
 		}
 		.info {
 		    padding: 6px 8px;
@@ -48,36 +66,194 @@
 		    margin: 0 0 5px;
 		    color: #777;
 		}
-		.legend {
-		    line-height: 18px;
-		    color: #555;
+
+		.sidepanel-content {
+			/* font-size: 1rem; */
 		}
-		.legend i {
-		    width: 18px;
-		    height: 18px;
-		    float: left;
-		    margin-right: 8px;
-		    opacity: 0.7;
+
+		.sidepanel-content h4 {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 1rem;
+		}
+
+		.sidepanel-content a {
+			text-decoration: none;
+			font-size: 1rem;
+			color: #199900;
+			transition: color 0.3s ease-in;
+		}
+
+		.sidepanel-content a:hover {
+			color: #116600;
+			text-decoration: underline;
+		}
+		.resultat {
+			font-size: 1rem;
+			font-weight: bold;
+		}
+		.svg_list{
+			display:block;
+  			height:24px;
+  			width:24px;
+    		background-image: url(./leaflet-SidePanel/dist/img/list.svg);
+		}
+		.svg_pin{
+			display:block;
+  			height:24px;
+  			width:24px;
+    		background-image: url(./leaflet-SidePanel/dist/img/pin.svg);
+		}
+		.svg_mark{
+			display:block;
+  			height:24px;
+  			width:24px;
+    		background-image: url(./leaflet-SidePanel/dist/img/mark.svg);
+		}
+		.svg_bookmarks{
+			display:block;
+  			height:24px;
+  			width:24px;
+    		background-image: url(./leaflet-SidePanel/dist/img/bookmarks.svg);
+		}
+		.svg_settings{
+			display:block;
+  			height:24px;
+  			width:24px;
+    		background-image: url(./leaflet-SidePanel/dist/img/settings.svg);
 		}
 	</style>
 
 	</head>
 
-	<body class="bg-dark busy">
-		<div id="map">></div>
+	<body>
+		<div id="map">>
+			<!-- Side Panel right -->
+			<div id="mySidepanelRight" class="sidepanel" aria-label="side panel" aria-hidden="false">
+				<div class="sidepanel-inner-wrapper">
+					<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+						<ul class="sidepanel-tabs">
+							<li class="sidepanel-tab">
+								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">
+									<objet type="image/svg+xml" class="svg_list"></objet>
+								</a>
+							</li>
+							<li class="sidepanel-tab">
+								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-2">
+									<objet type="image/svg+xml" class="svg_pin"></objet>
+								</a>
+							</li>
+							<li class="sidepanel-tab">
+								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-3">
+									<objet type="image/svg+xml" class="svg_mark"></objet>
+								</a>
+							</li>
+							<li class="sidepanel-tab">
+								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-4">
+									<objet type="image/svg+xml" class="svg_bookmarks"></objet>
+								</a>
+							</li>
+							<li class="sidepanel-tab">
+								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-5">
+									<objet type="image/svg+xml" class="svg_settings"></objet>
+								</a>
+							</li>
+						</ul>
+					</nav>
+					<div class="sidepanel-content-wrapper">
+						<div class="sidepanel-content">
+							<div class="sidepanel-tab-content" data-tab-content="tab-1">
+								Département <br>
+								<div id="label-departement" class="resultat"></div>
+								Circonscription <br>
+								<div id="label-circonscription" class="resultat"></div>
+								Commune <br>
+								<div id="label-commune" class="resultat"></div>
+								Bureau de vote <br>
+								<div id="label-bureaudevote" class="resultat"></div>
+								Inscrits sur les listes <br>
+								<div id="label-nbinscrits" class="resultat"></div>
+								<hr>
+								Résultats <br>
+								<div id="label-resultats-nbvoix" class="resultat">Nombre voix : </div> <br>
+								<div id="label-resultats-pourcentage" class="resultat">Poucentage : </div>
+								<hr>
+								<p></p>
+							</div>
+							<div class="sidepanel-tab-content" data-tab-content="tab-2">
+								<h4>Content 2</h4>
+								<p>Etiam varius in neque a tristique. Maecenas euismod pharetra scelerisque. Nam in pretium nulla, vel blandit risus. Duis posuere egestas nisi, vitae
+									iaculis tortor varius eget. Morbi molestie sem in varius vulputate. Cras enim sapien, malesuada id nisi eu, volutpat congue leo. Praesent aliquet
+									ipsum
+									id lectus consequat rutrum. In vitae dolor pellentesque dolor scelerisque condimentum eget at ligula. Integer vel turpis eros. Cras at hendrerit
+									mauris.
+									Aliquam erat volutpat. Quisque vehicula pharetra mauris, nec finibus augue posuere ut. Etiam condimentum lacus at purus luctus finibus.</p>
+							</div>
+							<div class="sidepanel-tab-content" data-tab-content="tab-3">
+								<h4>Content 3</h4>
+								<p>Nam nec lacinia purus, in accumsan arcu. Aenean at maximus tortor, eget porttitor leo. Fusce justo lorem, dictum nec rutrum sed, mattis faucibus
+									diam.
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper ex sagittis lacus gravida interdum quis sit amet justo. Nunc posuere
+									massa et feugiat efficitur. Donec est magna, lobortis sit amet ligula ut, vehicula posuere diam. Suspendisse aliquet blandit velit, consectetur
+									scelerisque libero porttitor eu. Praesent faucibus dignissim maximus. Vestibulum porta eu tellus sit amet ultricies. Integer aliquet vestibulum
+									massa,
+									in interdum arcu commodo ac. Curabitur sit amet cursus ipsum. Donec ut diam orci. Fusce odio diam, laoreet non elit sed, suscipit mollis leo. Fusce
+									non
+									turpis faucibus, placerat sapien quis, varius ligula. Praesent ac magna id tortor ultricies ultricies quis nec quam.</p>
+							</div>
+							<div class="sidepanel-tab-content" data-tab-content="tab-4">
+								<h4>Content 4</h4>
+								<p>Etiam varius in neque a tristique. Maecenas euismod pharetra scelerisque. Nam in pretium nulla, vel blandit risus. Duis posuere egestas nisi, vitae
+									iaculis tortor varius eget. Morbi molestie sem in varius vulputate. Cras enim sapien, malesuada id nisi eu, volutpat congue leo. Praesent aliquet
+									ipsum
+									id lectus consequat rutrum. In vitae dolor pellentesque dolor scelerisque condimentum eget at ligula. Integer vel turpis eros. Cras at hendrerit
+									mauris.
+									Aliquam erat volutpat. Quisque vehicula pharetra mauris, nec finibus augue posuere ut. Etiam condimentum lacus at purus luctus finibus.</p>
+							</div>
+							<div class="sidepanel-tab-content" data-tab-content="tab-5">
+								<h4>Représentation des couleurs :</h4>
+								<form>
+									<input type="radio" id="radio-voix" name="verify" value="voix" checked>
+										Nombre de voix
+									<input type="radio" id="radio-pourcentages" name="verify" value="pourcentages" > 
+										Pourcentages / Exprimés
+									<br>
+								</form>
+								<hr>
+								<p>
+									
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sidepanel-toggle-container">
+					<button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
+				</div>
+			</div>
+
+		</div>
 	</body>
 
 	<script>
-		var bleumax = '#032dff';//'#08519c'
-		var vertmax = '#51f542';
-		var blancmin = '#ffffff';
+		var repr_colors = "voix";
+		const bleumax = '#032dff';//'#08519c'
+		const vertmax = '#51f542';
+		const blancmin = '#ffffff';
 		const grad = new Gradient(vertmax, blancmin);
 		grad.append_at(vertmax, 0.2);
 		grad.append_at(bleumax, 0.2);
+
 		const map = L.map('map').setView([46.5, 2.5], 6);
 		const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
 			attribution: '© OpenStreetMap'
+		}).addTo(map);
+		L.control.scale({position:'bottomright',imperial:false}).addTo(map);
+		const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
+			panelPosition: 'right',
+			tabsPosition: 'right',
+			startTab: 'tab-5'
 		}).addTo(map);
 
 		var backbutton = new L.Control.BackButton()
@@ -85,53 +261,67 @@
 
 		function dept_ajouter_resultats(){
 			var liste_voix_zemmour = [];
+			var liste_perc_zemmour = [];
 			for (var e of departements){
 				var props = e.properties;
 				var code_dep = props.code_dep;
 				var nb_voix = 0;
 				var exprimes = 0;
+				var inscrits = 0;
 				if (resultats_circo[code_dep]){
 					dept_res = resultats_circo[code_dep];
 					for (var num_circo in dept_res){
 						if (num_circo=="nom_dep") { continue; };
 						var circo = dept_res[num_circo];
 						exprimes += circo.Exprimes;
+						inscrits += circo.Inscrits;
 						nb_voix += circo.voix[5];
 					}
+					props.Inscrits = inscrits;
 					liste_voix_zemmour.push(nb_voix);
 					props.nb_voix = nb_voix;
-					props.label = props.nom_dep;
+					props.label_dep = props.nom_dep;
 					props.Perc_Zemmour = Math.floor(nb_voix/exprimes*10000)/100;
+					liste_perc_zemmour.push(props.Perc_Zemmour);
 				}else{
 					console.log("No resultats_circo[code_dep]"+code_dep);
 				}
 			};
-			liste_voix_zemmour.sort(function(a, b){return a-b});
+			liste_voix_zemmour.sort(function(a, b){return b-a});
+			liste_perc_zemmour.sort(function(a, b){return b-a});
 			for (var e of departements){
 				var n = liste_voix_zemmour.indexOf(e.properties.nb_voix);
-				e.properties.color = grad.getAt(1-(n+1)/liste_voix_zemmour.length);
+				e.properties.color_voix = grad.getAt((n+1)/liste_voix_zemmour.length);
+				n = liste_perc_zemmour.indexOf(e.properties.Perc_Zemmour);
+				e.properties.color_pourcentages = grad.getAt((n+1)/liste_perc_zemmour.length);
 			};
 		};
 		function circo_ajouter_resultats(){
 			for (var code_dep in circonscriptions){
 				var liste_voix_zemmour = [];
+				var liste_perc_zemmour = [];
 				for (var c of circonscriptions[code_dep]){
 					var props = c.properties;
 					var num_circo = props.num_circo;
 					var circo_res = resultats_circo[code_dep][num_circo];
 					var exprimes = circo_res.Exprimes;
 					var nb_voix = circo_res.voix[5];
-					props.label = props.nom_circo;
+					props.Inscrits = circo_res.Inscrits;
+					props.label_circo = props.nom_circo;
 					props.nb_voix = nb_voix;
 					liste_voix_zemmour.push(nb_voix);
 					//console.log(nb_voix+" ; "+exprimes);
 					if (exprimes==0){console.log("Circo à 0 ???")};
 					props.Perc_Zemmour = Math.floor(nb_voix/exprimes*10000)/100;
+					liste_perc_zemmour.push(props.Perc_Zemmour);
 				}
-				liste_voix_zemmour.sort(function(a, b){return a-b});
+				liste_voix_zemmour.sort(function(a, b){return b-a});
+				liste_perc_zemmour.sort(function(a, b){return b-a});
 				for (var c of circonscriptions[code_dep]){
 					var n = liste_voix_zemmour.indexOf(c.properties.nb_voix);
-					c.properties.color = grad.getAt(1-(n+1)/liste_voix_zemmour.length);
+					c.properties.color_voix = grad.getAt((n+1)/liste_voix_zemmour.length);
+					n = liste_perc_zemmour.indexOf(c.properties.Perc_Zemmour);
+					c.properties.color_pourcentages = grad.getAt((n+1)/liste_perc_zemmour.length);
 				}
 			}
 		};
@@ -154,7 +344,6 @@
 					props.Exprimes = exprimes
 					props.nbTotalBvCirco = nb_bv;
 					props.resultats = bv_res.voix;
-					props.label = props.nom_commune+"<br>bureau "+num_bureau;
 					for (var cand of props.resultats){
 						if (exprimes!=0){
 							cand.perc = Math.floor(cand.voix/exprimes*10000)/100;
@@ -164,7 +353,8 @@
 					}
 					props.Perc_Zemmour = props.resultats[5].perc;
 					props.nb_voix = props.resultats[5].voix;
-					props.color = grad.getAt(props.resultats[5].classBVCirco/nb_bv);
+					props.color_voix = grad.getAt(props.resultats[5].classBVCirco/nb_bv);
+					props.color_pourcentages = grad.getAt(props.resultats[5].classPerBVCirco/nb_bv);
 				}
 			}
 		};
@@ -179,7 +369,7 @@
 		};
 		function getdefaultStyle(feature){
 			return {
-			        fillColor: feature.properties.color,
+			        fillColor: feature.properties["color_"+repr_colors],
 			        weight: 2,
 			        opacity: 1,
 			        color: 'white',
@@ -196,12 +386,13 @@
 		        fillOpacity: 0.7
 		    });
 		    layer.bringToFront();
-		    info.update(layer.feature.properties);
+		    //info.update(layer.feature.properties);
+		    update_info(layer.feature.properties);
 		};
 		function resetHighlight(e) {
 			var layer = e.target;
 			layer.setStyle(getdefaultStyle(layer.feature));
-			info.update();
+			//info.update();
 		};
 		function zoomToFeature(e) {
 			var layer = e.target;
@@ -209,7 +400,7 @@
     		map.fitBounds(layer.getBounds());
 		};
 		function zoomToDepartement(e) {
-			console.log(e);
+			//console.log(e);
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
@@ -219,7 +410,7 @@
 
 		};
 		function zoomToCirco(e) {
-			console.log(e);
+			//console.log(e);
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
@@ -248,35 +439,72 @@
 		dept_ajouter_resultats();
 		circo_ajouter_resultats();
 		bv_ajouter_resultats();
+		
 		var deptsGEOjsonLayer = L.geoJSON(departements, {onEachFeature: onEachFeature});
 		deptsGEOjsonLayer.addTo(map);
 		deptsGEOjsonLayer.on({click:zoomToDepartement});
+
+		var allcircos = L.layerGroup([]);
 		var circosGEOjsonLayer = {};
 		for (var cd in circonscriptions){
 			circosGEOjsonLayer[cd] = L.geoJSON(circonscriptions[cd], {onEachFeature: onEachFeature});
 			if (cd =="06"){
 				circosGEOjsonLayer[cd].on({click:zoomToCirco});
 			};
+			allcircos.addLayer(circosGEOjsonLayer[cd]);
 		};
+		var allbv = L.layerGroup([]);
 		var bvGEOjsonLayer = {};
 		for (var id_circo in bv_circo06){
 			bvGEOjsonLayer[id_circo] = L.geoJSON(bv_circo06[id_circo],{onEachFeature: onEachFeature});
+			allbv.addLayer(bvGEOjsonLayer[id_circo]);
 		}
 
 		// Adding a Custom Info Control
+		var label_departement = document.getElementById("label-departement");
+		var label_circonscription = document.getElementById("label-circonscription");
+		var label_commune = document.getElementById("label-commune");
+		var label_bureaudevote = document.getElementById("label-bureaudevote");
+		var label_nbinscrits = document.getElementById("label-nbinscrits");
+		var label_resultats_nbvoix = document.getElementById("label-resultats-nbvoix");
+		var label_resultats_pourcentage = document.getElementById("label-resultats-pourcentage");
+
 		var info = L.control();
 		info.onAdd = function (map) {
-		    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-		    this.update();
-		    return this._div;
+		    // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+		    // this.update();
+		    // return this._div;
 		};
 		// method that we will use to update the control based on feature properties passed
-		info.update = function (props) {
-		    this._div.innerHTML = '<h4>Résultats Zemmour </h4>' +  (props ?
-		        '<b>' + props.label + ':</b></br>Pourcentage : ' + props.Perc_Zemmour + '%' +'</br>Nombre voix :'+props.nb_voix
-		        : 'Départements');
+		update_info = function (props) {
+			if (props.label_dep){
+				label_departement.innerHTML = props.label_dep;
+				label_circonscription.innerHTML = " ";
+			}
+			if (props.label_circo){
+				label_circonscription.innerHTML = props.label_circo;
+				label_commune.innerHTML = " ";
+			}
+			if (props.nom_commune){
+				label_commune.innerHTML = props.nom_commune;
+			}
+			if (props.num_bureau && props.nom_bureau){
+				label_bureaudevote.innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
+			}else{
+				label_bureaudevote.innerHTML= " ";
+			}
+			if (props.Inscrits){
+				label_nbinscrits.innerHTML = props.Inscrits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");;
+			}
+			if (props.nb_voix && props.Perc_Zemmour){
+				label_resultats_nbvoix.innerHTML = "Nombre voix = "+props.nb_voix;
+				label_resultats_pourcentage.innerHTML = "Pourcentage = "+props.Perc_Zemmour + "%";
+			}
+		    // this._div.innerHTML = '<h4>Résultats Zemmour </h4>' +  (props ?
+		    //     '<b>' + props.label + ':</b></br>Pourcentage : ' + props.Perc_Zemmour + '%' +'</br>Nombre voix :'+props.nb_voix
+		    //     : 'Départements');
 		};
-		info.addTo(map);
+		//info.addTo(map);
 		
 		// Adding a Custom Legend Control
 		var legend = L.control({position: 'bottomleft'});
@@ -312,6 +540,33 @@
   			return div;
 		};
 		legend.addTo(map);
+
+		//If Radio Button is clicked.  
+		const update_style_eachLayer= function(layer) {
+			if (layer.feature && layer.feature.properties) {
+    			// layer is a non-group, built from GeoJSON data.
+    			// inspect the layer...
+    			layer.setStyle(getdefaultStyle(layer.feature));
+  			} else if (layer instanceof L.LayerGroup) {
+    			// layer is a nested Layer Group.
+    			// Recursive call to inspectLayer function.
+    			layer.eachLayer(update_style_eachLayer);
+  			}
+		}
+		document.getElementById("radio-voix").addEventListener('click', function(event) {
+			console.log("radio-voix");
+			repr_colors = "voix";
+			deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
+			allcircos.eachLayer(update_style_eachLayer);
+			allbv.eachLayer(update_style_eachLayer);
+    	});
+		document.getElementById("radio-pourcentages").addEventListener('click', function(event) {
+			console.log("radio-pourcentages");
+			repr_colors = "pourcentages";
+			deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
+			allcircos.eachLayer(update_style_eachLayer);
+			allbv.eachLayer(update_style_eachLayer);
+	    });
 
 		// map.locate({setView: true, maxZoom: 16});
 		// function onLocationFound(e) {

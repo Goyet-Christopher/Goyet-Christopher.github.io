@@ -35,8 +35,6 @@ class Gradient {
   	    this.blocks_sizes = newblocks;
 	};
 	set_color_place(n, percent){
-		console.log(this.colors);
-		console.log(this.blocks_sizes);
 		var len = this.colors.length;
 		if (percent<=0 || percent>=1 || n<1 || n>=len){return null};
 		const swapElements = (array, index1, index2) => {
@@ -45,13 +43,10 @@ class Gradient {
     		array[index2] = temp;
 		};
 		this.blocks_sizes[n] = percent;
-		console.log(this.colors);
-		console.log(this.blocks_sizes);
 		var i=n;
 		var temp = 0;
 		if (this.blocks_sizes[n-1]>percent){
 			while (i>1 && this.blocks_sizes[i-1]>this.blocks_sizes[i]){
-				console.log("descendre");
 				swapElements(this.blocks_sizes, i-1, i);
 				swapElements(this.colors, i-1, i);
 				i = i-1;
@@ -59,7 +54,6 @@ class Gradient {
 		}else{
 			if (this.blocks_sizes[n+1]<percent){
 				while (i<len-1 && this.blocks_sizes[i+1]<this.blocks_sizes[i]){
-					console.log("monter");
 					swapElements(this.blocks_sizes, i+1, i);
 					swapElements(this.colors, i+1, i);
 					i = i+1;
