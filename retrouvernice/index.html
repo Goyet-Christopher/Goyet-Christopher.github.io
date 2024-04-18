@@ -173,16 +173,14 @@
 								<div>
 								Circonscription <br>
 								<div id="label-circonscription" class="resultat"></div>
-								Commune <br>
 								</div>
 								<div>
+								Commune <br>
 								<div id="label-commune" class="resultat"></div>
 								Bureau de vote <br>
-								</div>
-								<div>
 								<div id="label-bureaudevote" class="resultat"></div>
-								Inscrits sur les listes <br>
 								</div>
+								Inscrits sur les listes <br>
 								<div id="label-nbinscrits" class="resultat"></div>
 								<hr>
 								Résultats <br>
@@ -500,9 +498,12 @@
 			if (props.label_circo){
 				label_circonscription.innerHTML = props.label_circo;
 				label_commune.innerHTML = " ";
+				label_circonscription.parentElement.hidden = false;
+				label_commune.parentElement.hidden = true;
 			}
 			if (props.nom_commune){
 				label_commune.innerHTML = props.nom_commune;
+				label_commune.parentElement.hidden = false;
 			}
 			if (props.num_bureau && props.nom_bureau){
 				label_bureaudevote.innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
