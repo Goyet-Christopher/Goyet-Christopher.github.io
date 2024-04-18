@@ -88,6 +88,9 @@
 			color: #116600;
 			text-decoration: underline;
 		}
+		.sidepanel-tab-content-perimetre {
+			white-space: pre-line;
+		}
 		.resultat {
 			font-size: 1rem;
 			font-weight: bold;
@@ -163,15 +166,23 @@
 					<div class="sidepanel-content-wrapper">
 						<div class="sidepanel-content">
 							<div class="sidepanel-tab-content" data-tab-content="tab-1">
+								<div>
 								Département <br>
 								<div id="label-departement" class="resultat"></div>
+								</div>
+								<div>
 								Circonscription <br>
 								<div id="label-circonscription" class="resultat"></div>
 								Commune <br>
+								</div>
+								<div>
 								<div id="label-commune" class="resultat"></div>
 								Bureau de vote <br>
+								</div>
+								<div>
 								<div id="label-bureaudevote" class="resultat"></div>
 								Inscrits sur les listes <br>
+								</div>
 								<div id="label-nbinscrits" class="resultat"></div>
 								<hr>
 								Résultats <br>
@@ -180,14 +191,9 @@
 								<hr>
 								<p></p>
 							</div>
-							<div class="sidepanel-tab-content" data-tab-content="tab-2">
-								<h4>Content 2</h4>
-								<p>Etiam varius in neque a tristique. Maecenas euismod pharetra scelerisque. Nam in pretium nulla, vel blandit risus. Duis posuere egestas nisi, vitae
-									iaculis tortor varius eget. Morbi molestie sem in varius vulputate. Cras enim sapien, malesuada id nisi eu, volutpat congue leo. Praesent aliquet
-									ipsum
-									id lectus consequat rutrum. In vitae dolor pellentesque dolor scelerisque condimentum eget at ligula. Integer vel turpis eros. Cras at hendrerit
-									mauris.
-									Aliquam erat volutpat. Quisque vehicula pharetra mauris, nec finibus augue posuere ut. Etiam condimentum lacus at purus luctus finibus.</p>
+							<div class="sidepanel-tab-content sidepanel-tab-content-perimetre" data-tab-content="tab-2" id="perimetre-data-content" >
+								<h4></h4>
+								<p></p>
 							</div>
 							<div class="sidepanel-tab-content" data-tab-content="tab-3">
 								<h4>Content 3</h4>
@@ -215,11 +221,19 @@
 								<form>
 									<input type="radio" id="radio-voix" name="verify" value="voix" checked>
 										Nombre de voix
+									<br>
 									<input type="radio" id="radio-pourcentages" name="verify" value="pourcentages" > 
 										Pourcentages / Exprimés
 									<br>
 								</form>
 								<hr>
+								<div class="slidecontainer">
+									<div style="position:relative;display:inline-block;">Mettre en avant : </div>
+									<div style="position:relative;display:inline-block;">20</div>
+									<div style="position:relative;display:inline-block;">%</div>
+									<br>
+  									<input type="range" min="0" max="100" value="20" class="slider" id="myRange" oninput="this.parentElement.children[1].innerText=this.value">
+								</div>
 								<p>
 									
 								</p>
@@ -253,7 +267,7 @@
 		const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
 			panelPosition: 'right',
 			tabsPosition: 'right',
-			startTab: 'tab-5'
+			startTab: 'tab-1'
 		}).addTo(map);
 
 		var backbutton = new L.Control.BackButton()
@@ -319,9 +333,9 @@
 				liste_perc_zemmour.sort(function(a, b){return b-a});
 				for (var c of circonscriptions[code_dep]){
 					var n = liste_voix_zemmour.indexOf(c.properties.nb_voix);
-					c.properties.color_voix = grad.getAt((n+1)/liste_voix_zemmour.length);
+					c.properties.color_voix = grad.getAt((n)/liste_voix_zemmour.length);
 					n = liste_perc_zemmour.indexOf(c.properties.Perc_Zemmour);
-					c.properties.color_pourcentages = grad.getAt((n+1)/liste_perc_zemmour.length);
+					c.properties.color_pourcentages = grad.getAt((n)/liste_perc_zemmour.length);
 				}
 			}
 		};
@@ -468,6 +482,7 @@
 		var label_nbinscrits = document.getElementById("label-nbinscrits");
 		var label_resultats_nbvoix = document.getElementById("label-resultats-nbvoix");
 		var label_resultats_pourcentage = document.getElementById("label-resultats-pourcentage");
+		var tab_perimetre_data = document.getElementById("perimetre-data-content");
 
 		var info = L.control();
 		info.onAdd = function (map) {
@@ -480,6 +495,7 @@
 			if (props.label_dep){
 				label_departement.innerHTML = props.label_dep;
 				label_circonscription.innerHTML = " ";
+				label_circonscription.parentElement.hidden = true;
 			}
 			if (props.label_circo){
 				label_circonscription.innerHTML = props.label_circo;
@@ -490,6 +506,9 @@
 			}
 			if (props.num_bureau && props.nom_bureau){
 				label_bureaudevote.innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
+				tab_perimetre_data.innerHTML = "<h4>"+props.nom_commune+" : Bureau "+props.num_bureau+"</h4>";
+				tab_perimetre_data.innerHTML +="</br>"+props.nom_bureau+"</br>"+props.adresse_bureau;
+				tab_perimetre_data.innerHTML += "<hr>Périmètre :<p>"+props.perimetre+"<p/>";
 			}else{
 				label_bureaudevote.innerHTML= " ";
 			}
