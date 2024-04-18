@@ -146,6 +146,7 @@
 									<objet type="image/svg+xml" class="svg_pin"></objet>
 								</a>
 							</li>
+							<!--
 							<li class="sidepanel-tab">
 								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-3">
 									<objet type="image/svg+xml" class="svg_mark"></objet>
@@ -156,6 +157,7 @@
 									<objet type="image/svg+xml" class="svg_bookmarks"></objet>
 								</a>
 							</li>
+						-->
 							<li class="sidepanel-tab">
 								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-5">
 									<objet type="image/svg+xml" class="svg_settings"></objet>
@@ -193,6 +195,7 @@
 								<h4></h4>
 								<p></p>
 							</div>
+							<!--
 							<div class="sidepanel-tab-content" data-tab-content="tab-3">
 								<h4>Content 3</h4>
 								<p>Nam nec lacinia purus, in accumsan arcu. Aenean at maximus tortor, eget porttitor leo. Fusce justo lorem, dictum nec rutrum sed, mattis faucibus
@@ -214,6 +217,7 @@
 									mauris.
 									Aliquam erat volutpat. Quisque vehicula pharetra mauris, nec finibus augue posuere ut. Etiam condimentum lacus at purus luctus finibus.</p>
 							</div>
+						-->
 							<div class="sidepanel-tab-content" data-tab-content="tab-5">
 								<h4>Représentation des couleurs :</h4>
 								<form>
@@ -475,7 +479,9 @@
 		// Adding a Custom Info Control
 		var label_departement = document.getElementById("label-departement");
 		var label_circonscription = document.getElementById("label-circonscription");
+		label_circonscription.parentElement.hidden = true;
 		var label_commune = document.getElementById("label-commune");
+		label_commune.parentElement.hidden = true;
 		var label_bureaudevote = document.getElementById("label-bureaudevote");
 		var label_nbinscrits = document.getElementById("label-nbinscrits");
 		var label_resultats_nbvoix = document.getElementById("label-resultats-nbvoix");
