@@ -7,7 +7,7 @@
     <meta name="keywords" content="Leafle.js">
     <meta name="author" content="GOYET Christopher">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Résultats présidentielle</title>
+    <title>Résultats électoraux</title>
     <link rel="shortcut icon" href="https://leafletjs.com/docs/images/favicon.ico">
 
     <!-- leaflet -->
@@ -16,8 +16,8 @@
 	<!-- leaflet -->
 
 	<!-- leaflet-SidePanel from https://github.com/maxwell-ilai/Leaflet.SidePanel/tree/main -->
-	<script type="text/javascript" src="./leaflet-SidePanel/dist/leaflet-sidepanel.min.js"></script>
-	<link rel="stylesheet" href="./leaflet-SidePanel/dist/leaflet-sidepanel.css">
+	<script type="text/javascript" src="./leaflet-SidePanel/leaflet-sidepanel.min.js"></script>
+	<link rel="stylesheet" href="./leaflet-SidePanel/leaflet-sidepanel.css">
 	<!-- leaflet-SidePanel -->
 
 	<script src="https://kit.fontawesome.com/83642594c1.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
 	<script type="text/javascript" src="color-gradient.js"></script>
 	
 
-	<!-- mes données -->
+	<!-- mes données </script> -->
 	<script src="data/departements-min.json"></script>
 	<script src="data/circonscriptions-min.json"></script>
 	<script src="data/resultats_circo-min.json"></script>
@@ -90,6 +90,7 @@
 		}
 		.sidepanel-tab-content-perimetre {
 			white-space: pre-line;
+			/* content: eval("current_layer.feature.properties.perimetre");*/
 		}
 		.resultat {
 			font-size: 1rem;
@@ -125,6 +126,9 @@
   			width:24px;
     		background-image: url(./leaflet-SidePanel/dist/img/settings.svg);
 		}
+		#container {
+    height: 200px;
+}
 	</style>
 
 	</head>
@@ -185,37 +189,40 @@
 								Inscrits sur les listes <br>
 								<div id="label-nbinscrits" class="resultat"></div>
 								<hr>
-								Résultats <br>
+								Résultats Zemmour 2022 :<br>
 								<div id="label-resultats-nbvoix" class="resultat">Nombre voix : </div> <br>
-								<div id="label-resultats-pourcentage" class="resultat">Poucentage : </div>
-								<hr>
-								<p></p>
+								<div id="label-resultats-pourcentage" class="resultat">Pourcentage : </div>
+								
+								
+								<div id="liner-bar" style="width:320px"></div>
+								
+								<div>
+									<div style="display: flex;justify-content:flex-start;">
+										<div style="margin:5px">
+											<div style="padding: 10px" id="label-exprimes"></div>
+											<div style="padding: 10px" id="label-votants"></div>
+											<div style="padding: 10px" id="label-participation"></div>
+										</div><div style="margin:5px">
+											<div style="padding: 10px" id="label-abstentions"></div>
+											<div style="padding: 10px" id="label-blancs"></div>
+											<div style="padding: 10px" id="label-nuls"></div>
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="sidepanel-tab-content sidepanel-tab-content-perimetre" data-tab-content="tab-2" id="perimetre-data-content" >
-								<h4></h4>
+								<h4>Selectionner un bureau de vote ...</h4>
+								</br>
 								<p></p>
 							</div>
 							<!--
 							<div class="sidepanel-tab-content" data-tab-content="tab-3">
 								<h4>Content 3</h4>
-								<p>Nam nec lacinia purus, in accumsan arcu. Aenean at maximus tortor, eget porttitor leo. Fusce justo lorem, dictum nec rutrum sed, mattis faucibus
-									diam.
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ullamcorper ex sagittis lacus gravida interdum quis sit amet justo. Nunc posuere
-									massa et feugiat efficitur. Donec est magna, lobortis sit amet ligula ut, vehicula posuere diam. Suspendisse aliquet blandit velit, consectetur
-									scelerisque libero porttitor eu. Praesent faucibus dignissim maximus. Vestibulum porta eu tellus sit amet ultricies. Integer aliquet vestibulum
-									massa,
-									in interdum arcu commodo ac. Curabitur sit amet cursus ipsum. Donec ut diam orci. Fusce odio diam, laoreet non elit sed, suscipit mollis leo. Fusce
-									non
-									turpis faucibus, placerat sapien quis, varius ligula. Praesent ac magna id tortor ultricies ultricies quis nec quam.</p>
+								<p></p>
 							</div>
 							<div class="sidepanel-tab-content" data-tab-content="tab-4">
 								<h4>Content 4</h4>
-								<p>Etiam varius in neque a tristique. Maecenas euismod pharetra scelerisque. Nam in pretium nulla, vel blandit risus. Duis posuere egestas nisi, vitae
-									iaculis tortor varius eget. Morbi molestie sem in varius vulputate. Cras enim sapien, malesuada id nisi eu, volutpat congue leo. Praesent aliquet
-									ipsum
-									id lectus consequat rutrum. In vitae dolor pellentesque dolor scelerisque condimentum eget at ligula. Integer vel turpis eros. Cras at hendrerit
-									mauris.
-									Aliquam erat volutpat. Quisque vehicula pharetra mauris, nec finibus augue posuere ut. Etiam condimentum lacus at purus luctus finibus.</p>
+								<p></p>
 							</div>
 						-->
 							<div class="sidepanel-tab-content" data-tab-content="tab-5">
@@ -252,6 +259,7 @@
 	</body>
 
 	<script>
+		var $ = function(id){return document.getElementById(id);};
 		var repr_colors = "voix";
 		const bleumax = '#032dff';//'#08519c'
 		const vertmax = '#51f542';
@@ -259,6 +267,7 @@
 		const grad = new Gradient(vertmax, blancmin);
 		grad.append_at(vertmax, 0.2);
 		grad.append_at(bleumax, 0.2);
+		candidats_colors = ["#bb0000", "#dd0000", "#ffeb00", "#26c4ec", "#0D378A", "#404040", "#cc2443", "#FF8080", "#00c000", "#0066CC", "#bb0000", "#0082C4"];
 
 		const map = L.map('map').setView([46.5, 2.5], 6);
 		const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -267,10 +276,14 @@
 		}).addTo(map);
 		L.control.scale({position:'bottomright',imperial:false}).addTo(map);
 		const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
+			panelOpen: true,
 			panelPosition: 'right',
 			tabsPosition: 'right',
 			startTab: 'tab-1'
-		}).addTo(map);
+		});
+		sidepanelLeft.addTo(map);
+		L.DomUtil.addClass(sidepanelLeft._panel, 'opened');
+		L.DomUtil.removeClass(sidepanelLeft._panel, 'closed');
 
 		var backbutton = new L.Control.BackButton()
 		backbutton.addTo(map);
@@ -280,64 +293,57 @@
 			var liste_perc_zemmour = [];
 			for (var e of departements){
 				var props = e.properties;
-				var code_dep = props.code_dep;
-				var nb_voix = 0;
-				var exprimes = 0;
-				var inscrits = 0;
-				if (resultats_circo[code_dep]){
-					dept_res = resultats_circo[code_dep];
-					for (var num_circo in dept_res){
-						if (num_circo=="nom_dep") { continue; };
-						var circo = dept_res[num_circo];
-						exprimes += circo.Exprimes;
-						inscrits += circo.Inscrits;
-						nb_voix += circo.voix[5];
+				var dept_res = resultats_circo[props.code_dep];
+				props.nom_dep=dept_res.nom_dep;
+				props.Candidats = resultats_circo["candidats"];
+				props.level = 1
+				props.Inscrits = 0;
+				props.Votants = 0;
+				props.Abstentions = 0;
+				props.Blancs = 0;
+				props.Nuls = 0;
+				props.Exprimes = 0;
+				props.Resultats = new Array(12);
+				for(var i=0; i<12; i++){props.Resultats[i] = {"voix":0};}
+				for (var c in dept_res){
+					if (c=="nom_dep") {continue;};
+					var circo = dept_res[c];
+					for (var k in circo){
+						if (Number.isInteger(circo[k])){
+							props[k] += circo[k];
+						}else{
+							if (k=="Resultats"){for (var i=0; i<12; i++){props[k][i].voix += circo[k][i].voix}}
+						}
 					}
-					props.Inscrits = inscrits;
-					liste_voix_zemmour.push(nb_voix);
-					props.nb_voix = nb_voix;
-					props.label_dep = props.nom_dep;
-					props.Perc_Zemmour = Math.floor(nb_voix/exprimes*10000)/100;
-					liste_perc_zemmour.push(props.Perc_Zemmour);
-				}else{
-					console.log("No resultats_circo[code_dep]"+code_dep);
+					
 				}
+				liste_voix_zemmour.push(props.Resultats[5].voix);
+				props.Resultats[5].pourcentage = Math.floor(props.Resultats[5].voix/props.Exprimes*10000)/100;
+				liste_perc_zemmour.push(props.Resultats[5].pourcentage);
 			};
 			liste_voix_zemmour.sort(function(a, b){return b-a});
 			liste_perc_zemmour.sort(function(a, b){return b-a});
 			for (var e of departements){
-				var n = liste_voix_zemmour.indexOf(e.properties.nb_voix);
-				e.properties.color_voix = grad.getAt((n+1)/liste_voix_zemmour.length);
-				n = liste_perc_zemmour.indexOf(e.properties.Perc_Zemmour);
-				e.properties.color_pourcentages = grad.getAt((n+1)/liste_perc_zemmour.length);
+				var n = liste_voix_zemmour.indexOf(e.properties.Resultats[5].voix);
+				e.properties.color_voix = grad.getAt(n/liste_voix_zemmour.length);
+				n = liste_perc_zemmour.indexOf(e.properties.Resultats[5].pourcentage);
+				e.properties.color_pourcentages = grad.getAt(n/liste_perc_zemmour.length);
 			};
 		};
 		function circo_ajouter_resultats(){
 			for (var code_dep in circonscriptions){
-				var liste_voix_zemmour = [];
-				var liste_perc_zemmour = [];
+				var nb_circos = Object.keys(circonscriptions[code_dep]).length;
 				for (var c of circonscriptions[code_dep]){
 					var props = c.properties;
-					var num_circo = props.num_circo;
-					var circo_res = resultats_circo[code_dep][num_circo];
-					var exprimes = circo_res.Exprimes;
-					var nb_voix = circo_res.voix[5];
-					props.Inscrits = circo_res.Inscrits;
-					props.label_circo = circo_res.nom_circo;
-					props.nb_voix = nb_voix;
-					liste_voix_zemmour.push(nb_voix);
-					//console.log(nb_voix+" ; "+exprimes);
-					if (exprimes==0){console.log("Circo à 0 ???")};
-					props.Perc_Zemmour = Math.floor(nb_voix/exprimes*10000)/100;
-					liste_perc_zemmour.push(props.Perc_Zemmour);
-				}
-				liste_voix_zemmour.sort(function(a, b){return b-a});
-				liste_perc_zemmour.sort(function(a, b){return b-a});
-				for (var c of circonscriptions[code_dep]){
-					var n = liste_voix_zemmour.indexOf(c.properties.nb_voix);
-					c.properties.color_voix = grad.getAt((n)/liste_voix_zemmour.length);
-					n = liste_perc_zemmour.indexOf(c.properties.Perc_Zemmour);
-					c.properties.color_pourcentages = grad.getAt((n)/liste_perc_zemmour.length);
+					var circo_res = resultats_circo[code_dep][props.num_circo];
+					c.properties = Object.assign(props,circo_res);
+					props.Candidats = resultats_circo["candidats"];
+					props.level = 2;
+					props.nb_circos = nb_circos;
+					props.nom_circo=props.num_circo+"<sup>"+((props.num_circo==1)?"ère":"ème")+"</sup> circonscription";
+					props.Resultats[5].pourcentage = Math.floor(props.Resultats[5].voix/props.Exprimes*10000)/100;
+					props.color_voix = grad.getAt(props.Resultats[5]["classVoixCirco/Dep"]/nb_circos);
+					props.color_pourcentages = grad.getAt(props.Resultats[5]["classPercCirco/Dep"]/nb_circos);
 				}
 			}
 		};
@@ -346,42 +352,27 @@
 				var nb_bv = Object.keys(bv_circo06[id_circo]).length;
 				for (var bv of bv_circo06[id_circo]){
 					var props = bv.properties;
-					var code_dep = props.code_dep;
-					var code_commune = props.code_commune;
-					var num_bureau = props.num_bureau;
-					var bv_res = resultats_bv[code_dep][code_commune][num_bureau];
-					var exprimes = bv_res.Exprimes;
-					var nb_voix_zemmour = bv_res.Resultats[5].voix;
-					props.Inscrits = bv_res.Inscrits;
-					props.Abstentions = bv_res.Abstentions;
-					props.Votants = bv_res.Votants;
-					props.Blancs = bv_res.Blancs;
-					props.Nuls = bv_res.Nuls;
-					props.Exprimes = exprimes
+					var bv_res = resultats_bv[props.code_dep][props.code_commune][props.num_bureau];
+					bv.properties = Object.assign(props,bv_res);
 					props.nbTotalBvCirco = nb_bv;
-					props.resultats = bv_res.Resultats;
-					for (var cand of props.resultats){
-						if (exprimes!=0){
-							cand.perc = Math.floor(cand.voix/exprimes*10000)/100;
+					props.level = 3
+					props.Candidats = resultats_bv["candidats"];
+					for (var cand of props.Resultats){
+						if (props.Exprimes!=0){
+							cand.perc = Math.floor(cand.voix/props.Exprimes*10000)/100;
 						}else{
 							cand.perc = 0;
 						}
 					}
-					props.Perc_Zemmour = props.resultats[5].perc;
-					props.nb_voix = props.resultats[5].voix;
-					props.color_voix = grad.getAt(props.resultats[5].classBVCirco/nb_bv);
-					props.color_pourcentages = grad.getAt(props.resultats[5].classPerBVCirco/nb_bv);
+					props.Perc_Zemmour = props.Resultats[5].perc;
+					props.nb_voix = props.Resultats[5].voix;
+					props.color_voix = grad.getAt(props.Resultats[5].classBVCirco/nb_bv);
+					props.color_pourcentages = grad.getAt(props.Resultats[5].classPerBVCirco/nb_bv);
 				}
 			}
 		};
-		function getColor(p) {
-			//console.log(p);
-			return grad.getAt(p);
-		    // return p > 13 ? '#08519c' :
-		    //        p > 10  ? '#3182bd' :
-		    //        p > 7  ? '#6baed6' :
-		    //        p > 5  ? '#bdd7e7' :
-		    //                   '#eff3ff';
+		function num2str(n){
+			return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 		};
 		function getdefaultStyle(feature){
 			return {
@@ -395,6 +386,7 @@
 		};
 		function highlightFeature(e) {
 		    var layer = e.target;
+		    current_layer = layer;
 		    layer.setStyle({
 		        weight: 5,
 		        color: 'black',
@@ -477,34 +469,33 @@
 		}
 
 		// Adding a Custom Info Control
-		var label_departement = document.getElementById("label-departement");
-		var label_circonscription = document.getElementById("label-circonscription");
+		var label_circonscription = $("label-circonscription");
 		label_circonscription.parentElement.hidden = true;
-		var label_commune = document.getElementById("label-commune");
+		var label_commune = $("label-commune");
 		label_commune.parentElement.hidden = true;
-		var label_bureaudevote = document.getElementById("label-bureaudevote");
-		var label_nbinscrits = document.getElementById("label-nbinscrits");
-		var label_resultats_nbvoix = document.getElementById("label-resultats-nbvoix");
-		var label_resultats_pourcentage = document.getElementById("label-resultats-pourcentage");
-		var tab_perimetre_data = document.getElementById("perimetre-data-content");
-
-		var info = L.control();
-		info.onAdd = function (map) {
-		    // this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-		    // this.update();
-		    // return this._div;
-		};
-		// method that we will use to update the control based on feature properties passed
+		// var info = L.control();
+		// info.addTo(map);
+		// info.onAdd = function (map) {
+		//     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+		//     this.update();
+		//     return this._div;
+		// };
 		update_info = function (props) {
-			if (props.label_dep){
-				label_departement.innerHTML = props.label_dep;
-				label_circonscription.innerHTML = " ";
+			
+			$("label-exprimes").innerHTML="Exprimés : "+num2str(props.Exprimes);
+			$("label-votants").innerHTML="Votants : "+num2str(props.Votants);
+			$("label-participation").innerHTML="Participation : "+(props.Votants/props.Inscrits*100).toFixed(2)+"%";
+			$("label-abstentions").innerHTML="Abstentions : "+num2str(props.Abstentions);
+			$("label-blancs").innerHTML="Blancs : "+num2str(props.Blancs);
+			$("label-nuls").innerHTML="Nuls : "+num2str(props.Nuls);
+			if (props.nom_dep){
+				$("label-departement").innerHTML = props.nom_dep;
 				label_circonscription.parentElement.hidden = true;
 			}
-			if (props.label_circo){
-				label_circonscription.innerHTML = props.label_circo;
-				label_commune.innerHTML = " ";
+			if (props.nom_circo){
+				label_circonscription.innerHTML = props.nom_circo;
 				label_circonscription.parentElement.hidden = false;
+				label_commune.innerHTML = " ";
 				label_commune.parentElement.hidden = true;
 			}
 			if (props.nom_commune){
@@ -512,31 +503,42 @@
 				label_commune.parentElement.hidden = false;
 			}
 			if (props.num_bureau && props.nom_bureau){
-				label_bureaudevote.innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
-				tab_perimetre_data.innerHTML = "<h4>"+props.nom_commune+" : Bureau "+props.num_bureau+"</h4>";
-				tab_perimetre_data.innerHTML +="</br>"+props.nom_bureau+"</br>"+props.adresse_bureau;
-				tab_perimetre_data.innerHTML += "<hr>Périmètre :<p>"+props.perimetre+"<p/>";
+				$("label-bureaudevote").innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
+				perimetre_str = "<h4>"+props.nom_commune+" : Bureau "+props.num_bureau+"</h4>";
+				perimetre_str +="</br>"+props.nom_bureau+"</br>"+props.adresse_bureau;
+				perimetre_str += "<hr>Périmètre :<p>"+props.perimetre+"</p>";
+				$("perimetre-data-content").innerHTML = perimetre_str;
 			}else{
-				label_bureaudevote.innerHTML= " ";
+				$("label-bureaudevote").innerHTML = "";
+				$("perimetre-data-content").innerHTML = "<h4>Selectionner un bureau de vote ...</h4></br><hr><p></p>";
 			}
 			if (props.Inscrits){
-				label_nbinscrits.innerHTML = props.Inscrits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");;
+				$("label-nbinscrits").innerHTML = num2str(props.Inscrits);
 			}
-			if (props.nb_voix && props.Perc_Zemmour){
-				label_resultats_nbvoix.innerHTML = "Nombre voix = "+props.nb_voix;
-				label_resultats_pourcentage.innerHTML = "Pourcentage = "+props.Perc_Zemmour + "%";
+			if (props.Resultats && props.Resultats[5].pourcentage){
+				$("label-resultats-nbvoix").innerHTML = "Nombre voix = "+num2str(props.Resultats[5].voix);
+				$("label-resultats-pourcentage").innerHTML = "Pourcentage = "+props.Resultats[5].pourcentage + "%";
 			}
-		    // this._div.innerHTML = '<h4>Résultats Zemmour </h4>' +  (props ?
-		    //     '<b>' + props.label + ':</b></br>Pourcentage : ' + props.Perc_Zemmour + '%' +'</br>Nombre voix :'+props.nb_voix
-		    //     : 'Départements');
+
+			var myData = [];
+			for (var i =0; i<12; i++){
+				cand = props.Candidats[i+1];
+				myData.push({title:cand.nom,value:Math.floor(props.Resultats[i].voix/props.Exprimes*1000)/10,color:candidats_colors[i]});
+			}
+			myData.sort(function(a, b){return b.value-a.value});
+			const myChart = new LinerBar("#liner-bar", {
+      			title: "Présidentielle 2022",
+      			items: myData,
+			});
+			myChart.render();
+
+
 		};
-		//info.addTo(map);
 		
 		// Adding a Custom Legend Control
 		var legend = L.control({position: 'bottomleft'});
 		legend.onAdd = function (map) {
     		var div = L.DomUtil.create('div', 'info legend');
-
     		var x = 0;
 			var dx = 0.01;
 			// '#ff0000','#ff7f00','#ffff00',
@@ -551,76 +553,47 @@
 			};
 			div.innerHTML = html
 			return div;
-
-        	grades = [0, 5, 7, 10, 13],
-        	labels = [];
-		    // loop through our density intervals and generate a label with a colored square for each interval
-    		for (var i = 0; i < grades.length; i++) {
-        		div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' + grades[i];
-        		if (grades[i + 1]){
-        			div.innerHTML +='&ndash;' + grades[i + 1] + '<br>';
-        		}else{
-        			div.innerHTML +='+';
-        		};
-    		};
-  			return div;
+        	// grades = [0, 5, 7, 10, 13],
+        	// labels = [];
+		    // // loop through our density intervals and generate a label with a colored square for each interval
+    		// for (var i = 0; i < grades.length; i++) {
+        	// 	div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' + grades[i];
+        	// 	if (grades[i + 1]){
+        	// 		div.innerHTML +='&ndash;' + grades[i + 1] + '<br>';
+        	// 	}else{
+        	// 		div.innerHTML +='+';
+        	// 	};
+    		// };
+  			// return div;
 		};
 		legend.addTo(map);
 
 		//If Radio Button is clicked.  
 		const update_style_eachLayer= function(layer) {
 			if (layer.feature && layer.feature.properties) {
-    			// layer is a non-group, built from GeoJSON data.
-    			// inspect the layer...
     			layer.setStyle(getdefaultStyle(layer.feature));
   			} else if (layer instanceof L.LayerGroup) {
-    			// layer is a nested Layer Group.
-    			// Recursive call to inspectLayer function.
     			layer.eachLayer(update_style_eachLayer);
   			}
 		}
-		document.getElementById("radio-voix").addEventListener('click', function(event) {
+		$("radio-voix").addEventListener('click', function(event) {
 			console.log("radio-voix");
 			repr_colors = "voix";
 			deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
 			allcircos.eachLayer(update_style_eachLayer);
 			allbv.eachLayer(update_style_eachLayer);
     	});
-		document.getElementById("radio-pourcentages").addEventListener('click', function(event) {
+		$("radio-pourcentages").addEventListener('click', function(event) {
 			console.log("radio-pourcentages");
 			repr_colors = "pourcentages";
 			deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
 			allcircos.eachLayer(update_style_eachLayer);
 			allbv.eachLayer(update_style_eachLayer);
 	    });
-
-		// map.locate({setView: true, maxZoom: 16});
-		// function onLocationFound(e) {
-    	// 	var radius = e.accuracy;
-    	// 	var position = e.latlng;
-    	// 	L.marker(position).addTo(map).bindPopup("Vous êtes dans un rayon de " + radius + " mètres de ce point").openPopup();
-    	// 	L.circle(position, radius).addTo(map);
-		// }
-		// map.on('locationfound', onLocationFound);
-
-
-		// var x = 0;
-		// var dx = 0.001;
-		// // '#ff0000','#ff7f00','#ffff00',
-		// var html = '';
-		// var width = window.innerWidth - 100;
-		// while (x < 1) {
-  		// 	var color = grad.getAt(x);
-  		// 	html += '<div style="position:relative;height:100px;display:inline-block;width:'+(dx*width)+'px;overflow:hidden;background:'+color+'">&nbsp;</div>';
-  		// 	x+=dx;
-		// };
-		// var el = document.createElement('div');
-		// el.innerHTML = html;
-		// document.body.appendChild(el);
-
 	</script>
 	<!-- mes données -->
-	
+	<link rel="stylesheet" href="liner-bar/liner-bar.css" />
+	<script src="liner-bar/liner-bar.js"></script>
 	<!-- mes données -->
 
 </html>

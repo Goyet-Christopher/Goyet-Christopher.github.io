@@ -62,7 +62,6 @@ L.Control.BackButton = L.Control.extend({
     /* GENERIC STACK FUNCTIONS */
     _pop: function() {
         var stack = this._state.history.items;
-        console.log(stack);
         if(L.Util.isArray(stack) && stack.length > 0) {
         	var debut = stack.length - 1;
         	var nbASupprimer = 1;
@@ -74,7 +73,6 @@ L.Control.BackButton = L.Control.extend({
     _push: function(value) {
         var maxLength = 2;
         var stack = this._state.history.items;
-        console.log(stack);
         if(L.Util.isArray(stack)) {
             stack.push(value);
             // depassement => rotation de la pile
@@ -82,7 +80,6 @@ L.Control.BackButton = L.Control.extend({
                 stack.splice(0, 1);
             }
         }
-        console.log(stack);
     },
     _popStackAndUseLocation : function() {
         //check if we can pop
