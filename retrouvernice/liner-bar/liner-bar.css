@@ -132,9 +132,9 @@
 }
 .liner-bar-progess-item:hover 
 .liner-bar-progess-item-value {
-/*    /position: absolute;
+    position: absolute;
     bottom: 3px;
-    right: 3px;*/
+    right: 3px;
     opacity: 1;
     -webkit-transition: -webkit-transform 2s, opacity 0.2s;
     -moz-transition: -moz-transform 2s, opacity 0.2s;
