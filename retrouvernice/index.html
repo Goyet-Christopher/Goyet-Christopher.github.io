@@ -90,7 +90,6 @@
 		}
 		.sidepanel-tab-content-perimetre {
 			white-space: pre-line;
-			/* content: eval("current_layer.feature.properties.perimetre");*/
 		}
 		.resultat {
 			font-size: 1rem;
@@ -126,9 +125,10 @@
   			width:24px;
     		background-image: url(./leaflet-SidePanel/img/settings.svg);
 		}
-		#container {
-    height: 200px;
-}
+		.liner-bar{
+			width:min(320px);
+		}
+		
 	</style>
 
 	</head>
@@ -194,7 +194,7 @@
 								<div id="label-resultats-pourcentage" class="resultat">Pourcentage : </div>
 								
 								
-								<div id="liner-bar" style="width:320px"></div>
+								<div id="liner-bar" class="liner-bar" ></div>
 								
 								<div>
 									<div style="display: flex;justify-content:flex-start;">
@@ -359,13 +359,11 @@
 					props.Candidats = resultats_bv["candidats"];
 					for (var cand of props.Resultats){
 						if (props.Exprimes!=0){
-							cand.perc = Math.floor(cand.voix/props.Exprimes*10000)/100;
+							cand.pourcentage = Math.floor(cand.voix/props.Exprimes*10000)/100;
 						}else{
-							cand.perc = 0;
+							cand.pourcentage = 0;
 						}
 					}
-					props.Perc_Zemmour = props.Resultats[5].perc;
-					props.nb_voix = props.Resultats[5].voix;
 					props.color_voix = grad.getAt(props.Resultats[5].classBVCirco/nb_bv);
 					props.color_pourcentages = grad.getAt(props.Resultats[5].classPerBVCirco/nb_bv);
 				}
