@@ -20,10 +20,14 @@
 	<link rel="stylesheet" href="./leaflet-SidePanel/leaflet-sidepanel.css">
 	<!-- leaflet-SidePanel -->
 
+	<!-- leaflet-liner-bar -->
+	<link rel="stylesheet" href="liner-bar/liner-bar.css" />
+	<script src="liner-bar/liner-bar.js"></script>
+	<!-- leaflet-liner-bar -->
+
 	<script src="https://kit.fontawesome.com/83642594c1.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="backward-button.js"></script>
 	<script type="text/javascript" src="color-gradient.js"></script>
-	
 
 	<!-- mes données </script> -->
 	<script src="data/departements-min.json"></script>
@@ -126,7 +130,7 @@
     		background-image: url(./leaflet-SidePanel/img/settings.svg);
 		}
 		.liner-bar{
-			width:min(320px);
+			width:320px;
 		}
 		
 	</style>
@@ -190,7 +194,7 @@
 								<div id="label-nbinscrits" class="resultat"></div>
 								<hr>
 								Résultats Zemmour 2022 :<br>
-								<div id="label-resultats-nbvoix" class="resultat">Nombre voix : </div> <br>
+								<div id="label-resultats-nbvoix" class="resultat">Nombre voix : </div>
 								<div id="label-resultats-pourcentage" class="resultat">Pourcentage : </div>
 								
 								
@@ -237,11 +241,11 @@
 								</form>
 								<hr>
 								<div class="slidecontainer">
-									<div style="position:relative;display:inline-block;">Mettre en avant : </div>
-									<div style="position:relative;display:inline-block;">20</div>
-									<div style="position:relative;display:inline-block;">%</div>
+									<div style="position:relative;display:inline-block;">Mettre en avant </div>
+									<div id="label-range-best" style="position:relative;display:inline-block;">20%</div>
+									<div style="position:relative;display:inline-block;"> des meilleures zones.</div>
 									<br>
-  									<input type="range" min="0" max="100" value="20" class="slider" id="myRange" oninput="this.parentElement.children[1].innerText=this.value">
+  									<input type="range" id="myRange" min="0" max="100" value="80" class="slider" >
 								</div>
 								<p>
 									
@@ -268,6 +272,7 @@
 		grad.append_at(vertmax, 0.2);
 		grad.append_at(bleumax, 0.2);
 		candidats_colors = ["#bb0000", "#dd0000", "#ffeb00", "#26c4ec", "#0D378A", "#404040", "#cc2443", "#FF8080", "#00c000", "#0066CC", "#bb0000", "#0082C4"];
+		candidats_hoverlength = ["54", "45", "62", ]
 
 		const map = L.map('map').setView([46.5, 2.5], 6);
 		const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -275,6 +280,8 @@
 			attribution: '© OpenStreetMap'
 		}).addTo(map);
 		L.control.scale({position:'bottomright',imperial:false}).addTo(map);
+		map.on('zoomend', autobackward);
+
 		const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
 			panelOpen: true,
 			panelPosition: 'right',
@@ -297,6 +304,7 @@
 				props.nom_dep=dept_res.nom_dep;
 				props.Candidats = resultats_circo["candidats"];
 				props.level = 1
+				props.nbTotal = departements.length;
 				props.Inscrits = 0;
 				props.Votants = 0;
 				props.Abstentions = 0;
@@ -325,8 +333,10 @@
 			liste_perc_zemmour.sort(function(a, b){return b-a});
 			for (var e of departements){
 				var n = liste_voix_zemmour.indexOf(e.properties.Resultats[5].voix);
+				e.properties.Resultats[5].classVoix = n;
 				e.properties.color_voix = grad.getAt(n/liste_voix_zemmour.length);
 				n = liste_perc_zemmour.indexOf(e.properties.Resultats[5].pourcentage);
+				e.properties.Resultats[5].classPerc = n;
 				e.properties.color_pourcentages = grad.getAt(n/liste_perc_zemmour.length);
 			};
 		};
@@ -339,9 +349,11 @@
 					c.properties = Object.assign(props,circo_res);
 					props.Candidats = resultats_circo["candidats"];
 					props.level = 2;
-					props.nb_circos = nb_circos;
+					props.nbTotal = nb_circos;
 					props.nom_circo=props.num_circo+"<sup>"+((props.num_circo==1)?"ère":"ème")+"</sup> circonscription";
 					props.Resultats[5].pourcentage = Math.floor(props.Resultats[5].voix/props.Exprimes*10000)/100;
+					props.Resultats[5].classVoix = props.Resultats[5]["classVoixCirco/Dep"];
+					props.Resultats[5].classPerc = props.Resultats[5]["classPercCirco/Dep"];
 					props.color_voix = grad.getAt(props.Resultats[5]["classVoixCirco/Dep"]/nb_circos);
 					props.color_pourcentages = grad.getAt(props.Resultats[5]["classPercCirco/Dep"]/nb_circos);
 				}
@@ -354,7 +366,7 @@
 					var props = bv.properties;
 					var bv_res = resultats_bv[props.code_dep][props.code_commune][props.num_bureau];
 					bv.properties = Object.assign(props,bv_res);
-					props.nbTotalBvCirco = nb_bv;
+					props.nbTotal = nb_bv;
 					props.level = 3
 					props.Candidats = resultats_bv["candidats"];
 					for (var cand of props.Resultats){
@@ -364,6 +376,8 @@
 							cand.pourcentage = 0;
 						}
 					}
+					props.Resultats[5].classVoix = props.Resultats[5].classBVCirco;
+					props.Resultats[5].classPerc = props.Resultats[5].classPerBVCirco;
 					props.color_voix = grad.getAt(props.Resultats[5].classBVCirco/nb_bv);
 					props.color_pourcentages = grad.getAt(props.Resultats[5].classPerBVCirco/nb_bv);
 				}
@@ -400,13 +414,26 @@
 			layer.setStyle(getdefaultStyle(layer.feature));
 			//info.update();
 		};
+		function autobackward(e){
+			var zoomsbylevel = [0, 6, 8, 11];
+			var curr_zoom = map.getZoom();
+			var layer_level = backbutton._state.history.items.length;
+			var last_autozoom = backbutton.getPreviousZoomLevel();
+			if (curr_zoom <= Math.min(zoomsbylevel[layer_level], last_autozoom)){
+				console.log("autobackward");
+				backbutton.goBack(false);
+			}
+		}
 		function zoomToFeature(e) {
+			L.DomEvent.disableScrollPropagation(map);
+			console.log("zoom to feature", e);
 			var layer = e.target;
-			layer.setStyle(getdefaultStyle(layer.feature));
-    		map.fitBounds(layer.getBounds());
+			//layer.setStyle(getdefaultStyle(layer.feature));
+			var bounds = layer.getBounds();
+    		map.fitBounds(bounds);
 		};
 		function zoomToDepartement(e) {
-			//console.log(e);
+			console.log("zoom to departements");
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
@@ -416,7 +443,7 @@
 
 		};
 		function zoomToCirco(e) {
-			//console.log(e);
+			console.log("zoom to circo");
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
@@ -535,9 +562,8 @@
 		
 		// Adding a Custom Legend Control
 		var legend = L.control({position: 'bottomleft'});
-		legend.onAdd = function (map) {
-    		var div = L.DomUtil.create('div', 'info legend');
-    		var x = 0;
+		const update_legend = function(div_legend){
+			var x = 0;
 			var dx = 0.01;
 			// '#ff0000','#ff7f00','#ffff00',
 			var html = '';
@@ -549,7 +575,13 @@
   				x+=dx;
 
 			};
-			div.innerHTML = html
+			div_legend.innerHTML = html
+			return div_legend;
+		}
+		legend.onAdd = function (map) {
+    		var div = L.DomUtil.create('div', 'info legend');
+    		div.setAttribute("id", "legend");
+    		update_legend(div);
 			return div;
         	// grades = [0, 5, 7, 10, 13],
         	// labels = [];
@@ -569,6 +601,9 @@
 		//If Radio Button is clicked.  
 		const update_style_eachLayer= function(layer) {
 			if (layer.feature && layer.feature.properties) {
+				var props = layer.feature.properties;
+				props.color_voix = grad.getAt(props.Resultats[5].classVoix/props.nbTotal);
+				props.color_pourcentages = grad.getAt(props.Resultats[5].classPerc/props.nbTotal);
     			layer.setStyle(getdefaultStyle(layer.feature));
   			} else if (layer instanceof L.LayerGroup) {
     			layer.eachLayer(update_style_eachLayer);
@@ -588,10 +623,26 @@
 			allcircos.eachLayer(update_style_eachLayer);
 			allbv.eachLayer(update_style_eachLayer);
 	    });
+	    
+	    $("myRange").oninput = function(event){
+	    	console.log(event);
+	    	var input_value = 100-parseInt(event.target.value);
+	    	$("label-range-best").innerHTML = input_value + "%";
+	    	var perc = input_value/100;
+	    	if (grad.blocks_sizes[1]>perc){
+	    		grad.set_color_place(1, perc);
+	    		grad.set_color_place(2, perc);
+	    	}else{
+	    		grad.set_color_place(2, perc);
+	    		grad.set_color_place(1, perc);
+	    	}
+	    	deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
+			allcircos.eachLayer(update_style_eachLayer);
+			allbv.eachLayer(update_style_eachLayer);
+			update_legend($("legend"));
+	    };
 	</script>
 	<!-- mes données -->
-	<link rel="stylesheet" href="liner-bar/liner-bar.css" />
-	<script src="liner-bar/liner-bar.js"></script>
 	<!-- mes données -->
 
 </html>

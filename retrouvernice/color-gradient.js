@@ -36,7 +36,7 @@ class Gradient {
 	};
 	set_color_place(n, percent){
 		var len = this.colors.length;
-		if (percent<=0 || percent>=1 || n<1 || n>=len){return null};
+		if (percent<0 || percent>1 || n<1 || n>=len){return null};
 		const swapElements = (array, index1, index2) => {
     		var temp = array[index1];
     		array[index1]= array[index2];
@@ -60,6 +60,7 @@ class Gradient {
 				}
 			}
 		}
+		console.log(this.blocks_sizes);
 	};
 	equi_repart_colors(){
 	    var len = this.colors.length;

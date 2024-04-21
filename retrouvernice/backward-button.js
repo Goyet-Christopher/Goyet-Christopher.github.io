@@ -2,7 +2,7 @@ L.Control.BackButton = L.Control.extend({
 	_map: null,
     _backButton: null,
     _state: {
-        backDisabled: null,
+        backDisabled: true,
         history: {
             items: []
         },
@@ -95,8 +95,22 @@ L.Control.BackButton = L.Control.extend({
     	var stack = this._state.history.items;
     	this._push({center, zoom, removedLayer, addedLayer});
     },
-    goBack: function() {
-    	var oldstate = this._popStackAndUseLocation();
+    getPreviousZoomLevel : function(){
+        var len = this._state.history.items.length;
+        if (len>0){
+            console.log(this._state.history.items[len-1]);
+            return this._state.history.items[len-1].zoom;
+        }
+        return null;
+    },
+    goBack: function(useLocation = true) {
+        var oldstate;
+        if (this._state.backDisabled){return;};
+        if (useLocation){
+    	   oldstate = this._popStackAndUseLocation();
+        }else{
+            oldstate = this._pop();
+        }
     	oldstate.addedLayer.remove();
 		oldstate.removedLayer.addTo(this._map);
 		this._updateState();
