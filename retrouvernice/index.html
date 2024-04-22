@@ -16,7 +16,7 @@
 	<!-- leaflet -->
 
 	<!-- leaflet-SidePanel from https://github.com/maxwell-ilai/Leaflet.SidePanel/tree/main -->
-	<script type="text/javascript" src="./leaflet-SidePanel/leaflet-sidepanel.min.js"></script>
+	<script type="text/javascript" src="./leaflet-SidePanel/leaflet-sidepanel.js"></script>
 	<link rel="stylesheet" href="./leaflet-SidePanel/leaflet-sidepanel.css">
 	<!-- leaflet-SidePanel -->
 
@@ -26,7 +26,7 @@
 	<!-- leaflet-liner-bar -->
 
 	<script src="https://kit.fontawesome.com/83642594c1.js" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="backward-button.js"></script>
+	<script type="text/javascript" src="backward-button/backward-button.js"></script>
 	<script type="text/javascript" src="color-gradient.js"></script>
 
 	<!-- mes données </script> -->
@@ -70,7 +70,6 @@
 		    margin: 0 0 5px;
 		    color: #777;
 		}
-
 		.sidepanel-content {
 			/* font-size: 1rem; */
 		}
@@ -128,6 +127,12 @@
   			height:24px;
   			width:24px;
     		background-image: url(./leaflet-SidePanel/img/settings.svg);
+		}
+		.svg_arrowleft{
+			display:inline-block;
+  			height:16px;
+  			width:16px;
+    		background-image: url(./backward-button/img/arrow-left.svg);
 		}
 		.liner-bar{
 			width:320px;
@@ -289,8 +294,7 @@
 			startTab: 'tab-1'
 		});
 		sidepanelLeft.addTo(map);
-		L.DomUtil.addClass(sidepanelLeft._panel, 'opened');
-		L.DomUtil.removeClass(sidepanelLeft._panel, 'closed');
+		sidepanelLeft.open();
 
 		var backbutton = new L.Control.BackButton()
 		backbutton.addTo(map);
@@ -415,41 +419,41 @@
 			//info.update();
 		};
 		function autobackward(e){
-			var zoomsbylevel = [0, 6, 8, 11];
 			var curr_zoom = map.getZoom();
 			var layer_level = backbutton._state.history.items.length;
-			var last_autozoom = backbutton.getPreviousZoomLevel();
-			if (curr_zoom <= Math.min(zoomsbylevel[layer_level], last_autozoom)){
+			var last_autozoom = backbutton.autoback_zoomlevel();
+			if (curr_zoom < last_autozoom-1){
 				console.log("autobackward");
 				backbutton.goBack(false);
+				backbutton.pop_autoback();
 			}
 		}
 		function zoomToFeature(e) {
 			L.DomEvent.disableScrollPropagation(map);
-			console.log("zoom to feature", e);
 			var layer = e.target;
 			//layer.setStyle(getdefaultStyle(layer.feature));
 			var bounds = layer.getBounds();
     		map.fitBounds(bounds);
 		};
 		function zoomToDepartement(e) {
-			console.log("zoom to departements");
+			console.log("zoom to departements", e);
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
 			var circolayers = circosGEOjsonLayer[feature.properties.code_dep];
 			circolayers.addTo(map);
 			backbutton.goForward(layer, circolayers);
-
+			backbutton.push_autoback(map.getBoundsZoom(circolayers.getBounds()));
 		};
 		function zoomToCirco(e) {
-			console.log("zoom to circo");
+			console.log("zoom to circo", e);
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
 			var bvlayers = bvGEOjsonLayer[feature.properties.id_circo];
 			bvlayers.addTo(map);
 			backbutton.goForward(layer, bvlayers);
+			backbutton.push_autoback(map.getBoundsZoom(bvlayers.getBounds()));
 		};
 		function onEachFeature(feature, layer) {
 			layer.on({
@@ -541,7 +545,12 @@
 				$("label-nbinscrits").innerHTML = num2str(props.Inscrits);
 			}
 			if (props.Resultats && props.Resultats[5].pourcentage){
-				$("label-resultats-nbvoix").innerHTML = "Nombre voix = "+num2str(props.Resultats[5].voix);
+				var str_nb_voix = "Nombre voix = "+num2str(props.Resultats[5].voix);
+				if (props.Resultats[5].legislatives){
+					console.log("res legislatives trouvé");
+					str_nb_voix += " (leg : "+num2str(props.Resultats[5].legislatives.voix)+", "+((props.Resultats[5].legislatives.voix-props.Resultats[5].voix)/props.Resultats[5].voix).toFixed(2)+"%)";
+				}
+				$("label-resultats-nbvoix").innerHTML = str_nb_voix;
 				$("label-resultats-pourcentage").innerHTML = "Pourcentage = "+props.Resultats[5].pourcentage + "%";
 			}
 
@@ -625,7 +634,6 @@
 	    });
 	    
 	    $("myRange").oninput = function(event){
-	    	console.log(event);
 	    	var input_value = 100-parseInt(event.target.value);
 	    	$("label-range-best").innerHTML = input_value + "%";
 	    	var perc = input_value/100;

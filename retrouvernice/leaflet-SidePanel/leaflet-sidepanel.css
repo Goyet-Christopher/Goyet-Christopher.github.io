@@ -45,7 +45,7 @@
 .sidepanel-inner-wrapper {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -20px;
   width: 100%;
   height: 100%;
   background-color: #ffffff;
@@ -184,7 +184,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #4b5057;
-  line-height: 1.7;
+/*  line-height: 1.7;*/
   padding-left: 8px;
   padding-right: 8px;
   border: 0;
