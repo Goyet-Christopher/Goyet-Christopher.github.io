@@ -116,62 +116,62 @@ var resultats_circo = {
 "1": {
 "sexe": "F",
 "nom": "ARTHAUD",
-"pr\u00e9nom": "Nathalie"
+"prénom": "Nathalie"
 },
 "2": {
 "sexe": "M",
 "nom": "ROUSSEL",
-"pr\u00e9nom": "Fabien"
+"prénom": "Fabien"
 },
 "3": {
 "sexe": "M",
 "nom": "MACRON",
-"pr\u00e9nom": "Emmanuel"
+"prénom": "Emmanuel"
 },
 "4": {
 "sexe": "M",
 "nom": "LASSALLE",
-"pr\u00e9nom": "Jean"
+"prénom": "Jean"
 },
 "5": {
 "sexe": "F",
 "nom": "LE PEN",
-"pr\u00e9nom": "Marine"
+"prénom": "Marine"
 },
 "6": {
 "sexe": "M",
 "nom": "ZEMMOUR",
-"pr\u00e9nom": "\u00c9ric"
+"prénom": "Éric"
 },
 "7": {
 "sexe": "M",
-"nom": "M\u00c9LENCHON",
-"pr\u00e9nom": "Jean-Luc"
+"nom": "MÉLENCHON",
+"prénom": "Jean-Luc"
 },
 "8": {
 "sexe": "F",
 "nom": "HIDALGO",
-"pr\u00e9nom": "Anne"
+"prénom": "Anne"
 },
 "9": {
 "sexe": "M",
 "nom": "JADOT",
-"pr\u00e9nom": "Yannick"
+"prénom": "Yannick"
 },
 "10": {
 "sexe": "F",
-"nom": "P\u00c9CRESSE",
-"pr\u00e9nom": "Val\u00e9rie"
+"nom": "PÉCRESSE",
+"prénom": "Valérie"
 },
 "11": {
 "sexe": "M",
 "nom": "POUTOU",
-"pr\u00e9nom": "Philippe"
+"prénom": "Philippe"
 },
 "12": {
 "sexe": "M",
 "nom": "DUPONT-AIGNAN",
-"pr\u00e9nom": "Nicolas"
+"prénom": "Nicolas"
 }
 },
 "02": {
@@ -465,7 +465,7 @@ var resultats_circo = {
 {"voix": 14451,"classVoixCirco/Dep": 8,"classVoixCirco/France": 390,"classPercCirco/Dep": 3,"classPercCirco/France": 334},
 {"voix": 1052,"classVoixCirco/Dep": 9,"classVoixCirco/France": 420,"classPercCirco/Dep": 8,"classPercCirco/France": 410},
 {"voix": 11576,"classVoixCirco/Dep": 9,"classVoixCirco/France": 378,"classPercCirco/Dep": 9,"classPercCirco/France": 359},
-{"voix": 8204,"classVoixCirco/Dep": 7,"classVoixCirco/France": 22,"classPercCirco/Dep": 3,"classPercCirco/France": 8},
+{"voix": 8204,"classVoixCirco/Dep": 7,"classVoixCirco/France": 22,"classPercCirco/Dep": 3,"classPercCirco/France": 8,},
 {"voix": 12153,"classVoixCirco/Dep": 2,"classVoixCirco/France": 340,"classPercCirco/Dep": 2,"classPercCirco/France": 220},
 {"voix": 631,"classVoixCirco/Dep": 4,"classVoixCirco/France": 486,"classPercCirco/Dep": 2,"classPercCirco/France": 504},
 {"voix": 2447,"classVoixCirco/Dep": 7,"classVoixCirco/France": 324,"classPercCirco/Dep": 4,"classPercCirco/France": 272},
@@ -487,7 +487,7 @@ var resultats_circo = {
 {"voix": 14780,"classVoixCirco/Dep": 6,"classVoixCirco/France": 373,"classPercCirco/Dep": 7,"classPercCirco/France": 459},
 {"voix": 2076,"classVoixCirco/Dep": 1,"classVoixCirco/France": 187,"classPercCirco/Dep": 1,"classPercCirco/France": 177},
 {"voix": 18956,"classVoixCirco/Dep": 2,"classVoixCirco/France": 127,"classPercCirco/Dep": 3,"classPercCirco/France": 138},
-{"voix": 7771,"classVoixCirco/Dep": 8,"classVoixCirco/France": 29,"classPercCirco/Dep": 9,"classPercCirco/France": 31},
+{"voix": 7771,"classVoixCirco/Dep": 8,"classVoixCirco/France": 29,"classPercCirco/Dep": 9,"classPercCirco/France": 31,"legislatives": {"sexe": "M","nom": "ISNARD","pr\u00e9nom": "Patrick","voix": 2930,"num_panneau": 7}},
 {"voix": 11041,"classVoixCirco/Dep": 3,"classVoixCirco/France": 398,"classPercCirco/Dep": 3,"classPercCirco/France": 431},
 {"voix": 643,"classVoixCirco/Dep": 3,"classVoixCirco/France": 481,"classPercCirco/Dep": 4,"classPercCirco/France": 547},
 {"voix": 2954,"classVoixCirco/Dep": 2,"classVoixCirco/France": 228,"classPercCirco/Dep": 2,"classPercCirco/France": 244},
@@ -509,7 +509,7 @@ var resultats_circo = {
 {"voix": 15282,"classVoixCirco/Dep": 3,"classVoixCirco/France": 350,"classPercCirco/Dep": 6,"classPercCirco/France": 408},
 {"voix": 1233,"classVoixCirco/Dep": 6,"classVoixCirco/France": 380,"classPercCirco/Dep": 7,"classPercCirco/France": 400},
 {"voix": 15058,"classVoixCirco/Dep": 8,"classVoixCirco/France": 282,"classPercCirco/Dep": 7,"classPercCirco/France": 280},
-{"voix": 8519,"classVoixCirco/Dep": 6,"classVoixCirco/France": 17,"classPercCirco/Dep": 6,"classPercCirco/France": 18},
+{"voix": 8519,"classVoixCirco/Dep": 6,"classVoixCirco/France": 17,"classPercCirco/Dep": 6,"classPercCirco/France": 18,"legislatives": {"sexe": "M","nom": "VARDON","pr\u00e9nom": "Philippe","voix": 4217,"num_panneau": 3}},
 {"voix": 13834,"classVoixCirco/Dep": 1,"classVoixCirco/France": 240,"classPercCirco/Dep": 1,"classPercCirco/France": 213},
 {"voix": 692,"classVoixCirco/Dep": 2,"classVoixCirco/France": 456,"classPercCirco/Dep": 3,"classPercCirco/France": 519},
 {"voix": 2689,"classVoixCirco/Dep": 3,"classVoixCirco/France": 281,"classPercCirco/Dep": 5,"classPercCirco/France": 289},
@@ -531,7 +531,7 @@ var resultats_circo = {
 {"voix": 13870,"classVoixCirco/Dep": 9,"classVoixCirco/France": 416,"classPercCirco/Dep": 9,"classPercCirco/France": 461},
 {"voix": 1728,"classVoixCirco/Dep": 2,"classVoixCirco/France": 260,"classPercCirco/Dep": 2,"classPercCirco/France": 236},
 {"voix": 19438,"classVoixCirco/Dep": 1,"classVoixCirco/France": 119,"classPercCirco/Dep": 1,"classPercCirco/France": 92},
-{"voix": 8912,"classVoixCirco/Dep": 4,"classVoixCirco/France": 14,"classPercCirco/Dep": 4,"classPercCirco/France": 9},
+{"voix": 8912,"classVoixCirco/Dep": 4,"classVoixCirco/France": 14,"classPercCirco/Dep": 4,"classPercCirco/France": 9,"legislatives": {"sexe": "M","nom": "RIEU","pr\u00e9nom": "Damien","voix": 4036,"num_panneau": 10}},
 {"voix": 8408,"classVoixCirco/Dep": 8,"classVoixCirco/France": 520,"classPercCirco/Dep": 8,"classPercCirco/France": 550},
 {"voix": 503,"classVoixCirco/Dep": 8,"classVoixCirco/France": 538,"classPercCirco/Dep": 8,"classPercCirco/France": 568},
 {"voix": 2031,"classVoixCirco/Dep": 8,"classVoixCirco/France": 400,"classPercCirco/Dep": 8,"classPercCirco/France": 428},
@@ -553,7 +553,7 @@ var resultats_circo = {
 {"voix": 14637,"classVoixCirco/Dep": 7,"classVoixCirco/France": 381,"classPercCirco/Dep": 8,"classPercCirco/France": 460},
 {"voix": 1622,"classVoixCirco/Dep": 3,"classVoixCirco/France": 285,"classPercCirco/Dep": 3,"classPercCirco/France": 303},
 {"voix": 18365,"classVoixCirco/Dep": 3,"classVoixCirco/France": 145,"classPercCirco/Dep": 4,"classPercCirco/France": 157},
-{"voix": 9095,"classVoixCirco/Dep": 3,"classVoixCirco/France": 12,"classPercCirco/Dep": 5,"classPercCirco/France": 11},
+{"voix": 9095,"classVoixCirco/Dep": 3,"classVoixCirco/France": 12,"classPercCirco/Dep": 5,"classPercCirco/France": 11,"legislatives": {"sexe": "M","nom": "VELLA","pr\u00e9nom": "Cédric","voix": 2843,"num_panneau": 2}},
 {"voix": 10935,"classVoixCirco/Dep": 4,"classVoixCirco/France": 410,"classPercCirco/Dep": 4,"classPercCirco/France": 433},
 {"voix": 568,"classVoixCirco/Dep": 5,"classVoixCirco/France": 512,"classPercCirco/Dep": 6,"classPercCirco/France": 560},
 {"voix": 2461,"classVoixCirco/Dep": 6,"classVoixCirco/France": 319,"classPercCirco/Dep": 7,"classPercCirco/France": 355},
@@ -575,7 +575,7 @@ var resultats_circo = {
 {"voix": 14904,"classVoixCirco/Dep": 5,"classVoixCirco/France": 367,"classPercCirco/Dep": 5,"classPercCirco/France": 357},
 {"voix": 1177,"classVoixCirco/Dep": 7,"classVoixCirco/France": 390,"classPercCirco/Dep": 6,"classPercCirco/France": 393},
 {"voix": 17424,"classVoixCirco/Dep": 4,"classVoixCirco/France": 184,"classPercCirco/Dep": 2,"classPercCirco/France": 131},
-{"voix": 8773,"classVoixCirco/Dep": 5,"classVoixCirco/France": 16,"classPercCirco/Dep": 2,"classPercCirco/France": 5},
+{"voix": 8773,"classVoixCirco/Dep": 5,"classVoixCirco/France": 16,"classPercCirco/Dep": 2,"classPercCirco/France": 5,"legislatives": {"sexe": "M","nom": "CIESLIK","pr\u00e9nom": "Denis","voix": 3590,"num_panneau": 11}},
 {"voix": 7723,"classVoixCirco/Dep": 9,"classVoixCirco/France": 537,"classPercCirco/Dep": 9,"classPercCirco/France": 559},
 {"voix": 513,"classVoixCirco/Dep": 7,"classVoixCirco/France": 535,"classPercCirco/Dep": 7,"classPercCirco/France": 563},
 {"voix": 2497,"classVoixCirco/Dep": 5,"classVoixCirco/France": 311,"classPercCirco/Dep": 6,"classPercCirco/France": 297},
@@ -597,7 +597,7 @@ var resultats_circo = {
 {"voix": 21159,"classVoixCirco/Dep": 1,"classVoixCirco/France": 130,"classPercCirco/Dep": 1,"classPercCirco/France": 195},
 {"voix": 1542,"classVoixCirco/Dep": 4,"classVoixCirco/France": 303,"classPercCirco/Dep": 5,"classPercCirco/France": 369},
 {"voix": 16498,"classVoixCirco/Dep": 5,"classVoixCirco/France": 220,"classPercCirco/Dep": 8,"classPercCirco/France": 298},
-{"voix": 9381,"classVoixCirco/Dep": 2,"classVoixCirco/France": 11,"classPercCirco/Dep": 8,"classPercCirco/France": 23},
+{"voix": 9381,"classVoixCirco/Dep": 2,"classVoixCirco/France": 11,"classPercCirco/Dep": 8,"classPercCirco/France": 23,"legislatives": {"sexe": "F","nom": "MARIUS","pr\u00e9nom": "Audrey","voix": 3472,"num_panneau": 7}},
 {"voix": 10606,"classVoixCirco/Dep": 5,"classVoixCirco/France": 425,"classPercCirco/Dep": 6,"classPercCirco/France": 512},
 {"voix": 886,"classVoixCirco/Dep": 1,"classVoixCirco/France": 337,"classPercCirco/Dep": 1,"classPercCirco/France": 456},
 {"voix": 3889,"classVoixCirco/Dep": 1,"classVoixCirco/France": 117,"classPercCirco/Dep": 1,"classPercCirco/France": 161},
@@ -619,7 +619,7 @@ var resultats_circo = {
 {"voix": 15183,"classVoixCirco/Dep": 4,"classVoixCirco/France": 356,"classPercCirco/Dep": 4,"classPercCirco/France": 347},
 {"voix": 1078,"classVoixCirco/Dep": 8,"classVoixCirco/France": 416,"classPercCirco/Dep": 9,"classPercCirco/France": 417},
 {"voix": 15663,"classVoixCirco/Dep": 7,"classVoixCirco/France": 252,"classPercCirco/Dep": 6,"classPercCirco/France": 216},
-{"voix": 9867,"classVoixCirco/Dep": 1,"classVoixCirco/France": 6,"classPercCirco/Dep": 1,"classPercCirco/France": 3},
+{"voix": 9867,"classVoixCirco/Dep": 1,"classVoixCirco/France": 6,"classPercCirco/Dep": 1,"classPercCirco/France": 3,"legislatives": {"sexe": "M","nom": "GROSJEAN","pr\u00e9nom": "Adrien","voix": 3481,"num_panneau": 5}},
 {"voix": 9075,"classVoixCirco/Dep": 6,"classVoixCirco/France": 498,"classPercCirco/Dep": 5,"classPercCirco/France": 497},
 {"voix": 429,"classVoixCirco/Dep": 9,"classVoixCirco/France": 556,"classPercCirco/Dep": 9,"classPercCirco/France": 573},
 {"voix": 1852,"classVoixCirco/Dep": 9,"classVoixCirco/France": 435,"classPercCirco/Dep": 9,"classPercCirco/France": 456},
@@ -641,7 +641,7 @@ var resultats_circo = {
 {"voix": 15441,"classVoixCirco/Dep": 2,"classVoixCirco/France": 342,"classPercCirco/Dep": 2,"classPercCirco/France": 296},
 {"voix": 1259,"classVoixCirco/Dep": 5,"classVoixCirco/France": 369,"classPercCirco/Dep": 4,"classPercCirco/France": 367},
 {"voix": 15941,"classVoixCirco/Dep": 6,"classVoixCirco/France": 239,"classPercCirco/Dep": 5,"classPercCirco/France": 185},
-{"voix": 7686,"classVoixCirco/Dep": 9,"classVoixCirco/France": 30,"classPercCirco/Dep": 7,"classPercCirco/France": 21},
+{"voix": 7686,"classVoixCirco/Dep": 9,"classVoixCirco/France": 30,"classPercCirco/Dep": 7,"classPercCirco/France": 21,"legislatives": {"sexe": "M","nom": "NGUYEN","pr\u00e9nom": "Xuan Truong","voix": 2712,"num_panneau": 3}},
 {"voix": 8570,"classVoixCirco/Dep": 7,"classVoixCirco/France": 511,"classPercCirco/Dep": 7,"classPercCirco/France": 514},
 {"voix": 549,"classVoixCirco/Dep": 6,"classVoixCirco/France": 523,"classPercCirco/Dep": 5,"classPercCirco/France": 554},
 {"voix": 2554,"classVoixCirco/Dep": 4,"classVoixCirco/France": 297,"classPercCirco/Dep": 3,"classPercCirco/France": 262},
@@ -3480,7 +3480,7 @@ var resultats_circo = {
 }
 },
 "34": {
-"nom_dep": "H\u00e9rault",
+"nom_dep": "Hérault",
 "1": {
 "Inscrits": 89342,
 "Abstentions": 21474,
@@ -7244,7 +7244,7 @@ var resultats_circo = {
 }
 },
 "64": {
-"nom_dep": "Pyr\u00e9n\u00e9es-Atlantiques",
+"nom_dep": "Pyrénées-Atlantiques",
 "1": {
 "Inscrits": 68649,
 "Abstentions": 14601,
@@ -7379,7 +7379,7 @@ var resultats_circo = {
 }
 },
 "65": {
-"nom_dep": "Hautes-Pyr\u00e9n\u00e9es",
+"nom_dep": "Hautes-Pyrénées",
 "1": {
 "Inscrits": 87881,
 "Abstentions": 19877,
@@ -7426,7 +7426,7 @@ var resultats_circo = {
 }
 },
 "66": {
-"nom_dep": "Pyr\u00e9n\u00e9es-Orientales",
+"nom_dep": "Pyrénées-Orientales",
 "1": {
 "Inscrits": 72300,
 "Abstentions": 18749,
@@ -10387,7 +10387,7 @@ var resultats_circo = {
 }
 },
 "85": {
-"nom_dep": "Vend\u00e9e",
+"nom_dep": "Vendée",
 "1": {
 "Inscrits": 118122,
 "Abstentions": 26087,
@@ -12437,7 +12437,7 @@ var resultats_circo = {
 }
 },
 "ZD": {
-"nom_dep": "La R\u00e9union",
+"nom_dep": "La Réunion",
 "1": {
 "Inscrits": 85236,
 "Abstentions": 37505,
@@ -12641,7 +12641,7 @@ var resultats_circo = {
 }
 },
 "ZN": {
-"nom_dep": "Nouvelle-Cal\u00e9donie",
+"nom_dep": "Nouvelle-Calédonie",
 "1": {
 "Inscrits": 96762,
 "Abstentions": 61832,
@@ -12688,7 +12688,7 @@ var resultats_circo = {
 }
 },
 "ZP": {
-"nom_dep": "Polyn\u00e9sie fran\u00e7aise",
+"nom_dep": "Polynésie fran\u00e7aise",
 "1": {
 "Inscrits": 71957,
 "Abstentions": 45693,
@@ -12807,7 +12807,7 @@ var resultats_circo = {
 }
 },
 "ZX": {
-"nom_dep": "Saint-Martin/Saint-Barth\u00e9lemy",
+"nom_dep": "Saint-Martin/Saint-Barthélemy",
 "1": {
 "Inscrits": 24414,
 "Abstentions": 15812,
@@ -12832,7 +12832,7 @@ var resultats_circo = {
 }
 },
 "ZZ": {
-"nom_dep": "Fran\u00e7ais \u00e9tablis hors de France",
+"nom_dep": "Fran\u00e7ais établis hors de France",
 "1": {
 "Inscrits": 237907,
 "Abstentions": 161601,
