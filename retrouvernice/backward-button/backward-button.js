@@ -84,9 +84,11 @@ L.Control.BackButton = L.Control.extend({
     },
     push_autoback: function(value){
         this._state.autobackward.push(value);
+        console.log("push_autoback :", this._state.autobackward);
     },
-    pop_autoback: function(value){
-        return this._state.autobackward.pop();
+    pop_autoback: function(value){ 
+        this._state.autobackward.pop();
+        console.log("pop_autoback :", this._state.autobackward);
     },
     autoback_zoomlevel : function(value){
         var len = this._state.autobackward.length;
@@ -122,8 +124,9 @@ L.Control.BackButton = L.Control.extend({
             oldstate = this._pop();
         }
         this.pop_autoback();
+        oldstate.removedLayer.layer.setStyle(getdefaultStyle(oldstate.removedLayer.layer.feature));
     	oldstate.addedLayer.remove();
-		oldstate.removedLayer.addTo(this._map);
+		oldstate.removedLayer.target.addTo(this._map);
 		this._updateState();
     	return oldstate;
     },
