@@ -286,6 +286,7 @@
 		}).addTo(map);
 		L.control.scale({position:'bottomright',imperial:false}).addTo(map);
 		map.on('zoomend', autobackward);
+		var click_feature = null;
 
 		const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
 			panelOpen: true,
@@ -430,29 +431,29 @@
 		function zoomToFeature(e) {
 			L.DomEvent.disableScrollPropagation(map);
 			var layer = e.target;
-			//layer.setStyle(getdefaultStyle(layer.feature));
 			var bounds = layer.getBounds();
     		map.fitBounds(bounds);
+    		//click_feature = e;
 		};
 		function zoomToDepartement(e) {
 			var layer = e.target;
 			var feature = e.layer.feature;
-			e.layer.setStyle(getdefaultStyle(e.layer.feature));
 			layer.remove();
+			//e.layer.setStyle(getdefaultStyle(e.layer.feature));
 			var circolayers = circosGEOjsonLayer[feature.properties.code_dep];
 			circolayers.addTo(map);
-			backbutton.goForward(layer, circolayers);
+			backbutton.goForward(e, circolayers);
 			backbutton.push_autoback(map.getBoundsZoom(circolayers.getBounds()));	
 		};
 		function zoomToCirco(e) {
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
+			//e.layer.setStyle(getdefaultStyle(e.layer.feature));
 			var bvlayers = bvGEOjsonLayer[feature.properties.id_circo];
 			bvlayers.addTo(map);
-			backbutton.goForward(layer, bvlayers);
+			backbutton.goForward(e, bvlayers);
 			backbutton.push_autoback(map.getBoundsZoom(bvlayers.getBounds()));
-			e.layer.setStyle(getdefaultStyle(e.layer.feature));
 		};
 		function onEachFeature(feature, layer) {
 			layer.on({
