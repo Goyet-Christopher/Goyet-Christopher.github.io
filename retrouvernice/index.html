@@ -420,12 +420,11 @@
 		};
 		function autobackward(e){
 			var curr_zoom = map.getZoom();
-			var layer_level = backbutton._state.history.items.length;
 			var last_autozoom = backbutton.autoback_zoomlevel();
 			if (curr_zoom < last_autozoom-1){
-				console.log("autobackward");
+				//console.log("autobackward : ", backbutton._state.autobackward);
 				backbutton.goBack(false);
-				backbutton.pop_autoback();
+				//backbutton.pop_autoback();
 			}
 		}
 		function zoomToFeature(e) {
@@ -436,17 +435,16 @@
     		map.fitBounds(bounds);
 		};
 		function zoomToDepartement(e) {
-			console.log("zoom to departements", e);
 			var layer = e.target;
 			var feature = e.layer.feature;
+			e.layer.setStyle(getdefaultStyle(e.layer.feature));
 			layer.remove();
 			var circolayers = circosGEOjsonLayer[feature.properties.code_dep];
 			circolayers.addTo(map);
 			backbutton.goForward(layer, circolayers);
-			backbutton.push_autoback(map.getBoundsZoom(circolayers.getBounds()));
+			backbutton.push_autoback(map.getBoundsZoom(circolayers.getBounds()));	
 		};
 		function zoomToCirco(e) {
-			console.log("zoom to circo", e);
 			var layer = e.target;
 			var feature = e.layer.feature;
 			layer.remove();
@@ -454,6 +452,7 @@
 			bvlayers.addTo(map);
 			backbutton.goForward(layer, bvlayers);
 			backbutton.push_autoback(map.getBoundsZoom(bvlayers.getBounds()));
+			e.layer.setStyle(getdefaultStyle(e.layer.feature));
 		};
 		function onEachFeature(feature, layer) {
 			layer.on({
@@ -547,8 +546,7 @@
 			if (props.Resultats && props.Resultats[5].pourcentage){
 				var str_nb_voix = "Nombre voix = "+num2str(props.Resultats[5].voix);
 				if (props.Resultats[5].legislatives){
-					console.log("res legislatives trouvé");
-					str_nb_voix += " (leg : "+num2str(props.Resultats[5].legislatives.voix)+", "+((props.Resultats[5].legislatives.voix-props.Resultats[5].voix)/props.Resultats[5].voix).toFixed(2)+"%)";
+					str_nb_voix += " (leg : "+num2str(props.Resultats[5].legislatives.voix)+", "+((props.Resultats[5].legislatives.voix-props.Resultats[5].voix)/props.Resultats[5].voix*100).toFixed(0)+"%)";
 				}
 				$("label-resultats-nbvoix").innerHTML = str_nb_voix;
 				$("label-resultats-pourcentage").innerHTML = "Pourcentage = "+props.Resultats[5].pourcentage + "%";
