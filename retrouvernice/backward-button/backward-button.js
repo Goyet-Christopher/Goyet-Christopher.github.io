@@ -38,8 +38,7 @@ L.Control.BackButton = L.Control.extend({
             .on(button, 'mousedown', stop)
             .on(button, 'dblclick', stop)
             .on(button, 'click', L.DomEvent.preventDefault)
-            .on(button, 'click', this.goBack, this)
-            .on(button, 'click', this._refocusOnMap, this);
+            .on(button, 'click', function(){this.goBack(true)}, this);
 
         return button;
     },
@@ -47,7 +46,7 @@ L.Control.BackButton = L.Control.extend({
         var isBackDisabled = (this._state.history.items.length === 0);
         if(isBackDisabled !== this._state.backDisabled) {
             this._state.backDisabled = isBackDisabled;
-            //this._map.fire('historyback' + (backDisabled ? 'disabled' : 'enabled'));
+            this._map.fire('historyback' + (this._state.backDisabled ? 'disabled' : 'enabled'));
         }
         this._setButtonState(isBackDisabled);
     },
@@ -116,8 +115,9 @@ L.Control.BackButton = L.Control.extend({
         return null;
     },
     goBack: function(useLocation = true) {
-        var oldstate;
         if (this._state.backDisabled){return;};
+        console.log("goBack :", this._state.autobackward, ", useLocation=", useLocation);
+        var oldstate;
         if (useLocation){
     	   oldstate = this._popStackAndUseLocation();
         }else{
