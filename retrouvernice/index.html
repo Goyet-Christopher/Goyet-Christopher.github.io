@@ -26,6 +26,7 @@
 	<!-- leaflet-liner-bar -->
 
 	<script src="https://kit.fontawesome.com/83642594c1.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="countdown/countdown.css" />
 	<script type="text/javascript" src="backward-button/backward-button.js"></script>
 	<script type="text/javascript" src="color-gradient.js"></script>
 
@@ -139,516 +140,628 @@
 		}
 		
 	</style>
+</head>
 
-	</head>
+<body>
+	<div id="map">>
+		<!-- Side Panel right -->
+		<div id="mySidepanelRight" class="sidepanel" aria-label="side panel" aria-hidden="false">
+			<div class="sidepanel-inner-wrapper">
+				<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+					<ul class="sidepanel-tabs">
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">
+								<objet type="image/svg+xml" class="svg_list"></objet>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-2">
+								<objet type="image/svg+xml" class="svg_pin"></objet>
+							</a>
+						</li>
+						<!--
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-3">
+								<objet type="image/svg+xml" class="svg_mark"></objet>
+							</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-4">
+								<objet type="image/svg+xml" class="svg_bookmarks"></objet>
+							</a>
+						</li>
+					-->
+						<li class="sidepanel-tab">
+							<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-5">
+								<objet type="image/svg+xml" class="svg_settings"></objet>
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="sidepanel-content-wrapper">
+					<div class="sidepanel-content">
+						<div class="sidepanel-tab-content" data-tab-content="tab-1">
+							<div class="wrap">  
+								<h4>Européennes 2024 :</h4>
+								<div id="countdown" class="countdown">
+								<div class="bloc-time days" data-init-value="3">
+								  <span class="count-title">Jours</span>
 
-	<body>
-		<div id="map">>
-			<!-- Side Panel right -->
-			<div id="mySidepanelRight" class="sidepanel" aria-label="side panel" aria-hidden="false">
-				<div class="sidepanel-inner-wrapper">
-					<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
-						<ul class="sidepanel-tabs">
-							<li class="sidepanel-tab">
-								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">
-									<objet type="image/svg+xml" class="svg_list"></objet>
-								</a>
-							</li>
-							<li class="sidepanel-tab">
-								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-2">
-									<objet type="image/svg+xml" class="svg_pin"></objet>
-								</a>
-							</li>
-							<!--
-							<li class="sidepanel-tab">
-								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-3">
-									<objet type="image/svg+xml" class="svg_mark"></objet>
-								</a>
-							</li>
-							<li class="sidepanel-tab">
-								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-4">
-									<objet type="image/svg+xml" class="svg_bookmarks"></objet>
-								</a>
-							</li>
-						-->
-							<li class="sidepanel-tab">
-								<a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-5">
-									<objet type="image/svg+xml" class="svg_settings"></objet>
-								</a>
-							</li>
-						</ul>
-					</nav>
-					<div class="sidepanel-content-wrapper">
-						<div class="sidepanel-content">
-							<div class="sidepanel-tab-content" data-tab-content="tab-1">
-								<div>
-								Département <br>
-								<div id="label-departement" class="resultat"></div>
+								  <div id="days-1" class="figure days days-1">
+								    <span class="top">4</span>
+								    <span class="top-back">
+								      <span>4</span>
+								    </span>
+								    <span class="bottom">4</span>
+								    <span class="bottom-back">
+								      <span>4</span>
+								    </span>
+								  </div>
+
+								  <div id="days-2" class="figure days days-2">
+								    <span class="top">6</span>
+								    <span class="top-back">
+								      <span>6</span>
+								    </span>
+								    <span class="bottom">6</span>
+								    <span class="bottom-back">
+								      <span>6</span>
+								    </span>
+								  </div>
 								</div>
-								<div>
-								Circonscription <br>
-								<div id="label-circonscription" class="resultat"></div>
+
+								<div class="bloc-time hours" data-init-value="24">
+								  <span class="count-title">Heures</span>
+
+								  <div id="hours-1" class="figure hours hours-1">
+								    <span class="top">2</span>
+								    <span class="top-back">
+								      <span>2</span>
+								    </span>
+								    <span class="bottom">2</span>
+								    <span class="bottom-back">
+								      <span>2</span>
+								    </span>
+								  </div>
+
+								  <div id="hours-2" class="figure hours hours-2">
+								    <span class="top">4</span>
+								    <span class="top-back">
+								      <span>4</span>
+								    </span>
+								    <span class="bottom">4</span>
+								    <span class="bottom-back">
+								      <span>4</span>
+								    </span>
+								  </div>
 								</div>
-								<div>
-								Commune <br>
-								<div id="label-commune" class="resultat"></div>
-								Bureau de vote <br>
-								<div id="label-bureaudevote" class="resultat"></div>
+
+								<div class="bloc-time min" data-init-value="0">
+								  <span class="count-title">Minutes</span>
+
+								  <div id="min-1" class="figure min min-1">
+								    <span class="top">0</span>
+								    <span class="top-back">
+								      <span>0</span>
+								    </span>
+								    <span class="bottom">0</span>
+								    <span class="bottom-back">
+								      <span>0</span>
+								    </span>        
+								  </div>
+
+								  <div id="min-2" class="figure min min-2">
+								   <span class="top">0</span>
+								    <span class="top-back">
+								      <span>0</span>
+								    </span>
+								    <span class="bottom">0</span>
+								    <span class="bottom-back">
+								      <span>0</span>
+								    </span>
+								  </div>
 								</div>
-								Inscrits sur les listes <br>
-								<div id="label-nbinscrits" class="resultat"></div>
+
+								<div class="bloc-time sec" data-init-value="0">
+								  <span class="count-title">Secondes</span>
+
+								    <div id="sec-1" class="figure sec sec-1">
+								    <span class="top">0</span>
+								    <span class="top-back">
+								      <span>0</span>
+								    </span>
+								    <span class="bottom">0</span>
+								    <span class="bottom-back">
+								      <span>0</span>
+								    </span>          
+								  </div>
+
+								  <div id="sec-2" class="figure sec sec-2">
+								    <span class="top">0</span>
+								    <span class="top-back">
+								      <span>0</span>
+								    </span>
+								    <span class="bottom">0</span>
+								    <span class="bottom-back">
+								      <span>0</span>
+								    </span>
+								  </div>
+								</div>
+								</div>
+								</div>
 								<hr>
-								Résultats Zemmour 2022 :<br>
-								<div id="label-resultats-nbvoix" class="resultat">Nombre voix : </div>
-								<div id="label-resultats-pourcentage" class="resultat">Pourcentage : </div>
-								
-								
-								<div id="liner-bar" class="liner-bar" ></div>
-								
-								<div>
-									<div style="display: flex;justify-content:flex-start;">
-										<div style="margin:5px">
-											<div style="padding: 10px" id="label-exprimes"></div>
-											<div style="padding: 10px" id="label-votants"></div>
-											<div style="padding: 10px" id="label-participation"></div>
-										</div><div style="margin:5px">
-											<div style="padding: 10px" id="label-abstentions"></div>
-											<div style="padding: 10px" id="label-blancs"></div>
-											<div style="padding: 10px" id="label-nuls"></div>
-										</div>
+							<div>
+							Département <br>
+							<div id="label-departement" class="resultat"></div>
+							</div>
+							<div>
+							Circonscription <br>
+							<div id="label-circonscription" class="resultat"></div>
+							</div>
+							<div>
+							Commune <br>
+							<div id="label-commune" class="resultat"></div>
+							Bureau de vote <br>
+							<div id="label-bureaudevote" class="resultat"></div>
+							</div>
+							Inscrits sur les listes <br>
+							<div id="label-nbinscrits" class="resultat"></div>
+							<hr>
+							Résultats Zemmour 2022 :<br>
+							<div id="label-resultats-nbvoix" class="resultat">Nombre voix : </div>
+							<div id="label-resultats-pourcentage" class="resultat">Pourcentage : </div>
+							
+							
+							<div id="liner-bar" class="liner-bar" >
+							</div>
+							
+							<div id="div-infos" >
+								<div style="display: flex;justify-content:space-between;">
+									<div style="margin:5px">
+										<div id="label-exprimes"></div>
+										<div id="label-votants"></div>
+										<div id="label-participation"></div>
+									</div><div style="margin:5px">
+										<div id="label-abstentions"></div>
+										<div id="label-blancs"></div>
+										<div id="label-nuls"></div>
 									</div>
 								</div>
 							</div>
-							<div class="sidepanel-tab-content sidepanel-tab-content-perimetre" data-tab-content="tab-2" id="perimetre-data-content" >
-								<h4>Selectionner un bureau de vote ...</h4>
-								</br>
-								<p></p>
+						</div>
+						<div class="sidepanel-tab-content sidepanel-tab-content-perimetre" data-tab-content="tab-2" id="perimetre-data-content" >
+							<h4>Selectionner un bureau de vote ...</h4>
+							</br>
+							<p></p>
+						</div>
+						<!--
+						<div class="sidepanel-tab-content" data-tab-content="tab-3">
+							<h4>Content 3</h4>
+							<p></p>
+						</div>
+						<div class="sidepanel-tab-content" data-tab-content="tab-4">
+							<h4>Content 4</h4>
+							<p></p>
+						</div>
+					-->
+						<div class="sidepanel-tab-content" data-tab-content="tab-5">
+							<h4>Représentation des couleurs :</h4>
+							<form>
+								<input type="radio" id="radio-voix" name="verify" value="voix" checked>
+									Nombre de voix
+								<br>
+								<input type="radio" id="radio-pourcentages" name="verify" value="pourcentages" > 
+									Pourcentages / Exprimés
+								<br>
+							</form>
+							<hr>
+							<div class="slidecontainer">
+								<div style="position:relative;display:inline-block;">Mettre en avant </div>
+								<div id="label-range-best" style="position:relative;display:inline-block;">20%</div>
+								<div style="position:relative;display:inline-block;"> des meilleures zones.</div>
+								<br>
+									<input type="range" id="myRange" min="0" max="100" value="20" class="slider" >
 							</div>
-							<!--
-							<div class="sidepanel-tab-content" data-tab-content="tab-3">
-								<h4>Content 3</h4>
-								<p></p>
-							</div>
-							<div class="sidepanel-tab-content" data-tab-content="tab-4">
-								<h4>Content 4</h4>
-								<p></p>
-							</div>
-						-->
-							<div class="sidepanel-tab-content" data-tab-content="tab-5">
-								<h4>Représentation des couleurs :</h4>
-								<form>
-									<input type="radio" id="radio-voix" name="verify" value="voix" checked>
-										Nombre de voix
-									<br>
-									<input type="radio" id="radio-pourcentages" name="verify" value="pourcentages" > 
-										Pourcentages / Exprimés
-									<br>
-								</form>
-								<hr>
-								<div class="slidecontainer">
-									<div style="position:relative;display:inline-block;">Mettre en avant </div>
-									<div id="label-range-best" style="position:relative;display:inline-block;">20%</div>
-									<div style="position:relative;display:inline-block;"> des meilleures zones.</div>
-									<br>
-  									<input type="range" id="myRange" min="0" max="100" value="80" class="slider" >
-								</div>
-								<p>
-									
-								</p>
-							</div>
+							<p>
+								
+							</p>
 						</div>
 					</div>
 				</div>
-				<div class="sidepanel-toggle-container">
-					<button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
-				</div>
 			</div>
-
+			<div class="sidepanel-toggle-container">
+				<button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel"></button>
+			</div>
 		</div>
-	</body>
 
-	<script>
-		var $ = function(id){return document.getElementById(id);};
-		var repr_colors = "voix";
-		const bleumax = '#032dff';//'#08519c'
-		const vertmax = '#51f542';
-		const blancmin = '#ffffff';
-		const grad = new Gradient(vertmax, blancmin);
-		grad.append_at(vertmax, 0.2);
-		grad.append_at(bleumax, 0.2);
-		candidats_colors = ["#bb0000", "#dd0000", "#ffeb00", "#26c4ec", "#0D378A", "#404040", "#cc2443", "#FF8080", "#00c000", "#0066CC", "#bb0000", "#0082C4"];
-		candidats_hoverlength = ["54", "45", "62", ]
+	</div>
+</body>
 
-		const map = L.map('map').setView([46.5, 2.5], 6);
-		const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 19,
-			attribution: '© OpenStreetMap'
-		}).addTo(map);
-		L.control.scale({position:'bottomright',imperial:false}).addTo(map);
-		map.on('zoomend', autobackward);
-		var click_feature = null;
+<script>
+	var $ = function(id){return document.getElementById(id);};
+	var repr_colors = "voix";
+	const bleumax = '#032dff';//'#08519c'
+	const vertmax = '#51f542';
+	const blancmin = '#ffffff';
+	const grad = new Gradient(vertmax, blancmin);
+	grad.append_at(vertmax, 0.2);
+	grad.append_at(bleumax, 0.2);
+	candidats_colors = ["#bb0000", "#dd0000", "#ffeb00", "#26c4ec", "#0D378A", "#404040", "#cc2443", "#FF8080", "#00c000", "#0066CC", "#bb0000", "#0082C4"];
+	candidats_hoverlength = ["54", "45", "62", ]
 
-		const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
-			panelOpen: true,
-			panelPosition: 'right',
-			tabsPosition: 'right',
-			startTab: 'tab-1'
-		});
-		sidepanelLeft.addTo(map);
-		sidepanelLeft.open();
+	const map = L.map('map').setView([46.5, 2.5], 6);
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '© OpenStreetMap'
+	}).addTo(map);
+	L.control.scale({position:'bottomright',imperial:false}).addTo(map);
+	map.on('zoomend', autobackward);
 
-		var backbutton = new L.Control.BackButton()
-		backbutton.addTo(map);
+	const sidepanelLeft = L.control.sidepanel('mySidepanelRight', {
+		panelOpen: true,
+		panelPosition: 'right',
+		tabsPosition: 'right',
+		startTab: 'tab-1'
+	});
+	sidepanelLeft.addTo(map);
+	sidepanelLeft.open();
 
-		function dept_ajouter_resultats(){
-			var liste_voix_zemmour = [];
-			var liste_perc_zemmour = [];
-			for (var e of departements){
-				var props = e.properties;
-				var dept_res = resultats_circo[props.code_dep];
-				props.nom_dep=dept_res.nom_dep;
+	var backbutton = new L.Control.BackButton()
+	backbutton.addTo(map);
+
+	function dept_ajouter_resultats(){
+		var liste_voix_zemmour = [];
+		var liste_perc_zemmour = [];
+		for (var e of departements){
+			var props = e.properties;
+			var dept_res = resultats_circo[props.code_dep];
+			props.nom_dep=dept_res.nom_dep;
+			props.Candidats = resultats_circo["candidats"];
+			props.level = 1
+			props.nbTotal = departements.length;
+			props.Inscrits = 0;
+			props.Votants = 0;
+			props.Abstentions = 0;
+			props.Blancs = 0;
+			props.Nuls = 0;
+			props.Exprimes = 0;
+			props.Resultats = new Array(12);
+			for(var i=0; i<12; i++){props.Resultats[i] = {"voix":0};}
+			for (var c in dept_res){
+				if (c=="nom_dep") {continue;};
+				var circo = dept_res[c];
+				for (var k in circo){
+					if (Number.isInteger(circo[k])){
+						props[k] += circo[k];
+					}else{
+						if (k=="Resultats"){for (var i=0; i<12; i++){props[k][i].voix += circo[k][i].voix}}
+					}
+				}
+				
+			}
+			liste_voix_zemmour.push(props.Resultats[5].voix);
+			props.Resultats[5].pourcentage = Math.floor(props.Resultats[5].voix/props.Exprimes*10000)/100;
+			liste_perc_zemmour.push(props.Resultats[5].pourcentage);
+		};
+		liste_voix_zemmour.sort(function(a, b){return b-a});
+		liste_perc_zemmour.sort(function(a, b){return b-a});
+		for (var e of departements){
+			var n = liste_voix_zemmour.indexOf(e.properties.Resultats[5].voix);
+			e.properties.Resultats[5].classVoix = n;
+			e.properties.color_voix = grad.getAt(n/liste_voix_zemmour.length);
+			n = liste_perc_zemmour.indexOf(e.properties.Resultats[5].pourcentage);
+			e.properties.Resultats[5].classPerc = n;
+			e.properties.color_pourcentages = grad.getAt(n/liste_perc_zemmour.length);
+		};
+	};
+	function circo_ajouter_resultats(){
+		for (var code_dep in circonscriptions){
+			var nb_circos = Object.keys(circonscriptions[code_dep]).length;
+			for (var c of circonscriptions[code_dep]){
+				var props = c.properties;
+				var circo_res = resultats_circo[code_dep][props.num_circo];
+				c.properties = Object.assign(props,circo_res);
 				props.Candidats = resultats_circo["candidats"];
-				props.level = 1
-				props.nbTotal = departements.length;
-				props.Inscrits = 0;
-				props.Votants = 0;
-				props.Abstentions = 0;
-				props.Blancs = 0;
-				props.Nuls = 0;
-				props.Exprimes = 0;
-				props.Resultats = new Array(12);
-				for(var i=0; i<12; i++){props.Resultats[i] = {"voix":0};}
-				for (var c in dept_res){
-					if (c=="nom_dep") {continue;};
-					var circo = dept_res[c];
-					for (var k in circo){
-						if (Number.isInteger(circo[k])){
-							props[k] += circo[k];
-						}else{
-							if (k=="Resultats"){for (var i=0; i<12; i++){props[k][i].voix += circo[k][i].voix}}
-						}
-					}
-					
-				}
-				liste_voix_zemmour.push(props.Resultats[5].voix);
+				props.level = 2;
+				props.nbTotal = nb_circos;
+				props.nom_circo=props.num_circo+"<sup>"+((props.num_circo==1)?"ère":"ème")+"</sup> circonscription";
 				props.Resultats[5].pourcentage = Math.floor(props.Resultats[5].voix/props.Exprimes*10000)/100;
-				liste_perc_zemmour.push(props.Resultats[5].pourcentage);
-			};
-			liste_voix_zemmour.sort(function(a, b){return b-a});
-			liste_perc_zemmour.sort(function(a, b){return b-a});
-			for (var e of departements){
-				var n = liste_voix_zemmour.indexOf(e.properties.Resultats[5].voix);
-				e.properties.Resultats[5].classVoix = n;
-				e.properties.color_voix = grad.getAt(n/liste_voix_zemmour.length);
-				n = liste_perc_zemmour.indexOf(e.properties.Resultats[5].pourcentage);
-				e.properties.Resultats[5].classPerc = n;
-				e.properties.color_pourcentages = grad.getAt(n/liste_perc_zemmour.length);
-			};
-		};
-		function circo_ajouter_resultats(){
-			for (var code_dep in circonscriptions){
-				var nb_circos = Object.keys(circonscriptions[code_dep]).length;
-				for (var c of circonscriptions[code_dep]){
-					var props = c.properties;
-					var circo_res = resultats_circo[code_dep][props.num_circo];
-					c.properties = Object.assign(props,circo_res);
-					props.Candidats = resultats_circo["candidats"];
-					props.level = 2;
-					props.nbTotal = nb_circos;
-					props.nom_circo=props.num_circo+"<sup>"+((props.num_circo==1)?"ère":"ème")+"</sup> circonscription";
-					props.Resultats[5].pourcentage = Math.floor(props.Resultats[5].voix/props.Exprimes*10000)/100;
-					props.Resultats[5].classVoix = props.Resultats[5]["classVoixCirco/Dep"];
-					props.Resultats[5].classPerc = props.Resultats[5]["classPercCirco/Dep"];
-					props.color_voix = grad.getAt(props.Resultats[5]["classVoixCirco/Dep"]/nb_circos);
-					props.color_pourcentages = grad.getAt(props.Resultats[5]["classPercCirco/Dep"]/nb_circos);
-				}
-			}
-		};
-		function bv_ajouter_resultats(){
-			for (var id_circo in bv_circo06){
-				var nb_bv = Object.keys(bv_circo06[id_circo]).length;
-				for (var bv of bv_circo06[id_circo]){
-					var props = bv.properties;
-					var bv_res = resultats_bv[props.code_dep][props.code_commune][props.num_bureau];
-					bv.properties = Object.assign(props,bv_res);
-					props.nbTotal = nb_bv;
-					props.level = 3
-					props.Candidats = resultats_bv["candidats"];
-					for (var cand of props.Resultats){
-						if (props.Exprimes!=0){
-							cand.pourcentage = Math.floor(cand.voix/props.Exprimes*10000)/100;
-						}else{
-							cand.pourcentage = 0;
-						}
-					}
-					props.Resultats[5].classVoix = props.Resultats[5].classBVCirco;
-					props.Resultats[5].classPerc = props.Resultats[5].classPerBVCirco;
-					props.color_voix = grad.getAt(props.Resultats[5].classBVCirco/nb_bv);
-					props.color_pourcentages = grad.getAt(props.Resultats[5].classPerBVCirco/nb_bv);
-				}
-			}
-		};
-		function num2str(n){
-			return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-		};
-		function getdefaultStyle(feature){
-			return {
-			        fillColor: feature.properties["color_"+repr_colors],
-			        weight: 2,
-			        opacity: 1,
-			        color: 'white',
-			        dashArray: '3',
-			        fillOpacity: 0.7
-			    	};
-		};
-		function highlightFeature(e) {
-		    var layer = e.target;
-		    current_layer = layer;
-		    layer.setStyle({
-		        weight: 5,
-		        color: 'black',
-		        dashArray: '',
-		        fillOpacity: 0.7
-		    });
-		    layer.bringToFront();
-		    //info.update(layer.feature.properties);
-		    update_info(layer.feature.properties);
-		};
-		function resetHighlight(e) {
-			var layer = e.target;
-			layer.setStyle(getdefaultStyle(layer.feature));
-			//info.update();
-		};
-		function autobackward(e){
-			var curr_zoom = map.getZoom();
-			var last_autozoom = backbutton.autoback_zoomlevel();
-			if (curr_zoom < last_autozoom-1){
-				//console.log("autobackward : ", backbutton._state.autobackward);
-				backbutton.goBack(false);
-				//backbutton.pop_autoback();
+				props.Resultats[5].classVoix = props.Resultats[5]["classVoixCirco/Dep"];
+				props.Resultats[5].classPerc = props.Resultats[5]["classPercCirco/Dep"];
+				props.color_voix = grad.getAt(props.Resultats[5]["classVoixCirco/Dep"]/nb_circos);
+				props.color_pourcentages = grad.getAt(props.Resultats[5]["classPercCirco/Dep"]/nb_circos);
 			}
 		}
-		function zoomToFeature(e) {
-			L.DomEvent.disableScrollPropagation(map);
-			var layer = e.target;
-			var bounds = layer.getBounds();
-    		map.fitBounds(bounds);
-    		//click_feature = e;
-		};
-		function zoomToDepartement(e) {
-			var layer = e.target;
-			var feature = e.layer.feature;
-			layer.remove();
-			//e.layer.setStyle(getdefaultStyle(e.layer.feature));
-			var circolayers = circosGEOjsonLayer[feature.properties.code_dep];
-			circolayers.addTo(map);
-			backbutton.goForward(e, circolayers);
-			backbutton.push_autoback(map.getBoundsZoom(circolayers.getBounds()));	
-		};
-		function zoomToCirco(e) {
-			var layer = e.target;
-			var feature = e.layer.feature;
-			layer.remove();
-			//e.layer.setStyle(getdefaultStyle(e.layer.feature));
-			var bvlayers = bvGEOjsonLayer[feature.properties.id_circo];
-			bvlayers.addTo(map);
-			backbutton.goForward(e, bvlayers);
-			backbutton.push_autoback(map.getBoundsZoom(bvlayers.getBounds()));
-		};
-		function onEachFeature(feature, layer) {
-			layer.on({
-		        mouseover: highlightFeature,
-		        mouseout: resetHighlight,
-		        click: zoomToFeature
-		    });
-		    /*if (feature.properties && feature.properties.nom_dep) {
-		    	if (feature.properties.code_dep){		    		
-		    		var nb_voix = compute_nb_voix(feature.properties.code_dep);
-		    		feature.properties.Perc_Zemmour = nb_voix;
-		    		layer.bindPopup(feature.properties.nom_dep+"<br/>"+nb_voix+"%");
-		    	}else{
-		    		layer.bindPopup(feature.properties.nom_dep);
-		    	};
-		    };*/
-		   	//feature.properties.Perc_Zemmour = compute_nb_voix(feature.properties.code_dep);
-		    layer.setStyle(getdefaultStyle(feature));
-		};
-		dept_ajouter_resultats();
-		circo_ajouter_resultats();
-		bv_ajouter_resultats();
-		
-		var deptsGEOjsonLayer = L.geoJSON(departements, {onEachFeature: onEachFeature});
-		deptsGEOjsonLayer.addTo(map);
-		deptsGEOjsonLayer.on({click:zoomToDepartement});
-
-		var allcircos = L.layerGroup([]);
-		var circosGEOjsonLayer = {};
-		for (var cd in circonscriptions){
-			circosGEOjsonLayer[cd] = L.geoJSON(circonscriptions[cd], {onEachFeature: onEachFeature});
-			if (cd =="06"){
-				circosGEOjsonLayer[cd].on({click:zoomToCirco});
-			};
-			allcircos.addLayer(circosGEOjsonLayer[cd]);
-		};
-		var allbv = L.layerGroup([]);
-		var bvGEOjsonLayer = {};
+	};
+	function bv_ajouter_resultats(){
 		for (var id_circo in bv_circo06){
-			bvGEOjsonLayer[id_circo] = L.geoJSON(bv_circo06[id_circo],{onEachFeature: onEachFeature});
-			allbv.addLayer(bvGEOjsonLayer[id_circo]);
-		}
-
-		// Adding a Custom Info Control
-		var label_circonscription = $("label-circonscription");
-		label_circonscription.parentElement.hidden = true;
-		var label_commune = $("label-commune");
-		label_commune.parentElement.hidden = true;
-		// var info = L.control();
-		// info.addTo(map);
-		// info.onAdd = function (map) {
-		//     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-		//     this.update();
-		//     return this._div;
-		// };
-		update_info = function (props) {
-			
-			$("label-exprimes").innerHTML="Exprimés : "+num2str(props.Exprimes);
-			$("label-votants").innerHTML="Votants : "+num2str(props.Votants);
-			$("label-participation").innerHTML="Participation : "+(props.Votants/props.Inscrits*100).toFixed(2)+"%";
-			$("label-abstentions").innerHTML="Abstentions : "+num2str(props.Abstentions);
-			$("label-blancs").innerHTML="Blancs : "+num2str(props.Blancs);
-			$("label-nuls").innerHTML="Nuls : "+num2str(props.Nuls);
-			if (props.nom_dep){
-				$("label-departement").innerHTML = props.nom_dep;
-				label_circonscription.parentElement.hidden = true;
-			}
-			if (props.nom_circo){
-				label_circonscription.innerHTML = props.nom_circo;
-				label_circonscription.parentElement.hidden = false;
-				label_commune.innerHTML = " ";
-				label_commune.parentElement.hidden = true;
-			}
-			if (props.nom_commune){
-				label_commune.innerHTML = props.nom_commune;
-				label_commune.parentElement.hidden = false;
-			}
-			if (props.num_bureau && props.nom_bureau){
-				$("label-bureaudevote").innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
-				perimetre_str = "<h4>"+props.nom_commune+" : Bureau "+props.num_bureau+"</h4>";
-				perimetre_str +="</br>"+props.nom_bureau+"</br>"+props.adresse_bureau;
-				perimetre_str += "<hr>Périmètre :<p>"+props.perimetre+"</p>";
-				$("perimetre-data-content").innerHTML = perimetre_str;
-			}else{
-				$("label-bureaudevote").innerHTML = "";
-				$("perimetre-data-content").innerHTML = "<h4>Selectionner un bureau de vote ...</h4></br><hr><p></p>";
-			}
-			if (props.Inscrits){
-				$("label-nbinscrits").innerHTML = num2str(props.Inscrits);
-			}
-			if (props.Resultats && props.Resultats[5].pourcentage){
-				var str_nb_voix = "Nombre voix = "+num2str(props.Resultats[5].voix);
-				if (props.Resultats[5].legislatives){
-					str_nb_voix += " (leg : "+num2str(props.Resultats[5].legislatives.voix)+", "+((props.Resultats[5].legislatives.voix-props.Resultats[5].voix)/props.Resultats[5].voix*100).toFixed(0)+"%)";
+			var nb_bv = Object.keys(bv_circo06[id_circo]).length;
+			for (var bv of bv_circo06[id_circo]){
+				var props = bv.properties;
+				var bv_res = resultats_bv[props.code_dep][props.code_commune][props.num_bureau];
+				bv.properties = Object.assign(props,bv_res);
+				props.nbTotal = nb_bv;
+				props.level = 3
+				props.Candidats = resultats_bv["candidats"];
+				for (var cand of props.Resultats){
+					if (props.Exprimes!=0){
+						cand.pourcentage = Math.floor(cand.voix/props.Exprimes*10000)/100;
+					}else{
+						cand.pourcentage = 0;
+					}
 				}
-				$("label-resultats-nbvoix").innerHTML = str_nb_voix;
-				$("label-resultats-pourcentage").innerHTML = "Pourcentage = "+props.Resultats[5].pourcentage + "%";
+				props.Resultats[5].classVoix = props.Resultats[5].classBVCirco;
+				props.Resultats[5].classPerc = props.Resultats[5].classPerBVCirco;
+				props.color_voix = grad.getAt(props.Resultats[5].classBVCirco/nb_bv);
+				props.color_pourcentages = grad.getAt(props.Resultats[5].classPerBVCirco/nb_bv);
 			}
-
-			var myData = [];
-			for (var i =0; i<12; i++){
-				cand = props.Candidats[i+1];
-				myData.push({title:cand.nom,value:Math.floor(props.Resultats[i].voix/props.Exprimes*1000)/10,color:candidats_colors[i]});
-			}
-			myData.sort(function(a, b){return b.value-a.value});
-			const myChart = new LinerBar("#liner-bar", {
-      			title: "Présidentielle 2022",
-      			items: myData,
-			});
-			myChart.render();
-
-
-		};
-		
-		// Adding a Custom Legend Control
-		var legend = L.control({position: 'bottomleft'});
-		const update_legend = function(div_legend){
-			var x = 0;
-			var dx = 0.01;
-			// '#ff0000','#ff7f00','#ffff00',
-			var html = '';
-			var width = 100;
-			while (x < 1) {
-  				var color = grad.getAt(1-x);
-  				html += '<div style="position:relative;height:10px;display:inline-block;width:'+(dx*width)+'px;overflow:hidden;background:'+color+'">&nbsp;</div>';
-  				//if (x==0){html +='<span style="position:absolute;bottom:10px;right:0;">0</span>';};
-  				x+=dx;
-
-			};
-			div_legend.innerHTML = html
-			return div_legend;
 		}
-		legend.onAdd = function (map) {
-    		var div = L.DomUtil.create('div', 'info legend');
-    		div.setAttribute("id", "legend");
-    		update_legend(div);
-			return div;
-        	// grades = [0, 5, 7, 10, 13],
-        	// labels = [];
-		    // // loop through our density intervals and generate a label with a colored square for each interval
-    		// for (var i = 0; i < grades.length; i++) {
-        	// 	div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' + grades[i];
-        	// 	if (grades[i + 1]){
-        	// 		div.innerHTML +='&ndash;' + grades[i + 1] + '<br>';
-        	// 	}else{
-        	// 		div.innerHTML +='+';
-        	// 	};
-    		// };
-  			// return div;
-		};
-		legend.addTo(map);
-
-		//If Radio Button is clicked.  
-		const update_style_eachLayer= function(layer) {
-			if (layer.feature && layer.feature.properties) {
-				var props = layer.feature.properties;
-				props.color_voix = grad.getAt(props.Resultats[5].classVoix/props.nbTotal);
-				props.color_pourcentages = grad.getAt(props.Resultats[5].classPerc/props.nbTotal);
-    			layer.setStyle(getdefaultStyle(layer.feature));
-  			} else if (layer instanceof L.LayerGroup) {
-    			layer.eachLayer(update_style_eachLayer);
-  			}
-		}
-		$("radio-voix").addEventListener('click', function(event) {
-			console.log("radio-voix");
-			repr_colors = "voix";
-			deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
-			allcircos.eachLayer(update_style_eachLayer);
-			allbv.eachLayer(update_style_eachLayer);
-    	});
-		$("radio-pourcentages").addEventListener('click', function(event) {
-			console.log("radio-pourcentages");
-			repr_colors = "pourcentages";
-			deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
-			allcircos.eachLayer(update_style_eachLayer);
-			allbv.eachLayer(update_style_eachLayer);
+	};
+	function num2str(n){
+		return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+	};
+	function getdefaultStyle(feature){
+		return {
+		        fillColor: feature.properties["color_"+repr_colors],
+		        weight: 2,
+		        opacity: 1,
+		        color: 'white',
+		        dashArray: '3',
+		        fillOpacity: 0.7
+		    	};
+	};
+	function highlightFeature(e) {
+	    var layer = e.target;
+	    current_layer = layer;
+	    layer.setStyle({
+	        weight: 5,
+	        color: 'black',
+	        dashArray: '',
+	        fillOpacity: 0.7
 	    });
-	    
-	    $("myRange").oninput = function(event){
-	    	var input_value = 100-parseInt(event.target.value);
-	    	$("label-range-best").innerHTML = input_value + "%";
-	    	var perc = input_value/100;
-	    	if (grad.blocks_sizes[1]>perc){
-	    		grad.set_color_place(1, perc);
-	    		grad.set_color_place(2, perc);
+	    layer.bringToFront();
+	    //info.update(layer.feature.properties);
+	    update_info(layer.feature.properties);
+	};
+	function resetHighlight(e) {
+		var layer = e.target;
+		layer.setStyle(getdefaultStyle(layer.feature));
+		//info.update();
+	};
+	function autobackward(e){
+		var curr_zoom = map.getZoom();
+		var last_autozoom = backbutton.autoback_zoomlevel();
+		console.log("autobackward : curr_zoom=",curr_zoom, ", last=", last_autozoom);
+		if (curr_zoom < last_autozoom-1){
+			console.log("autobackward : ", backbutton._state.autobackward);
+			backbutton.goBack(false);
+			//backbutton.pop_autoback();
+		}
+	}
+	function zoomToFeature(e) {
+		L.DomEvent.disableScrollPropagation(map);
+		var layer = e.target;
+		var bounds = layer.getBounds();
+		map.fitBounds(bounds);
+	};
+	function zoomToDepartement(e) {
+		var layer = e.target;
+		var feature = e.layer.feature;
+		layer.remove();
+		//e.layer.setStyle(getdefaultStyle(e.layer.feature));
+		var circolayers = circosGEOjsonLayer[feature.properties.code_dep];
+		circolayers.addTo(map);
+		backbutton.goForward(e, circolayers);
+		backbutton.push_autoback(map.getBoundsZoom(circolayers.getBounds()));	
+	};
+	function zoomToCirco(e) {
+		var layer = e.target;
+		var feature = e.layer.feature;
+		layer.remove();
+		//e.layer.setStyle(getdefaultStyle(e.layer.feature));
+		var bvlayers = bvGEOjsonLayer[feature.properties.id_circo];
+		bvlayers.addTo(map);
+		backbutton.goForward(e, bvlayers);
+		backbutton.push_autoback(map.getBoundsZoom(bvlayers.getBounds()));
+	};
+	function onEachFeature(feature, layer) {
+		layer.on({
+	        mouseover: highlightFeature,
+	        mouseout: resetHighlight,
+	        click: zoomToFeature
+	    });
+	    /*if (feature.properties && feature.properties.nom_dep) {
+	    	if (feature.properties.code_dep){		    		
+	    		var nb_voix = compute_nb_voix(feature.properties.code_dep);
+	    		feature.properties.Perc_Zemmour = nb_voix;
+	    		layer.bindPopup(feature.properties.nom_dep+"<br/>"+nb_voix+"%");
 	    	}else{
-	    		grad.set_color_place(2, perc);
-	    		grad.set_color_place(1, perc);
-	    	}
-	    	deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
-			allcircos.eachLayer(update_style_eachLayer);
-			allbv.eachLayer(update_style_eachLayer);
-			update_legend($("legend"));
-	    };
-	</script>
+	    		layer.bindPopup(feature.properties.nom_dep);
+	    	};
+	    };*/
+	   	//feature.properties.Perc_Zemmour = compute_nb_voix(feature.properties.code_dep);
+	    layer.setStyle(getdefaultStyle(feature));
+	};
+	dept_ajouter_resultats();
+	circo_ajouter_resultats();
+	bv_ajouter_resultats();
+	
+	var deptsGEOjsonLayer = L.geoJSON(departements, {onEachFeature: onEachFeature});
+	deptsGEOjsonLayer.addTo(map);
+	deptsGEOjsonLayer.on({click:zoomToDepartement});
+
+	var allcircos = L.layerGroup([]);
+	var circosGEOjsonLayer = {};
+	for (var cd in circonscriptions){
+		circosGEOjsonLayer[cd] = L.geoJSON(circonscriptions[cd], {onEachFeature: onEachFeature});
+		if (cd =="06"){
+			circosGEOjsonLayer[cd].on({click:zoomToCirco});
+		};
+		allcircos.addLayer(circosGEOjsonLayer[cd]);
+	};
+	var allbv = L.layerGroup([]);
+	var bvGEOjsonLayer = {};
+	for (var id_circo in bv_circo06){
+		bvGEOjsonLayer[id_circo] = L.geoJSON(bv_circo06[id_circo],{onEachFeature: onEachFeature});
+		allbv.addLayer(bvGEOjsonLayer[id_circo]);
+	}
+
+	// Adding a Custom Info Control
+	var label_circonscription = $("label-circonscription");
+	label_circonscription.parentElement.hidden = true;
+	var label_commune = $("label-commune");
+	label_commune.parentElement.hidden = true;
+	const div_infos = $("div-infos");
+
+	// var info = L.control();
+	// info.addTo(map);
+	// info.onAdd = function (map) {
+	//     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+	//     this.update();
+	//     return this._div;
+	// };
+	update_info = function (props) {
+		
+		$("label-exprimes").innerHTML="Exprimés : "+num2str(props.Exprimes);
+		$("label-votants").innerHTML="Votants : "+num2str(props.Votants);
+		$("label-participation").innerHTML="Participation : "+(props.Votants/props.Inscrits*100).toFixed(2)+"%";
+		$("label-abstentions").innerHTML="Abstentions : "+num2str(props.Abstentions);
+		$("label-blancs").innerHTML="Blancs : "+num2str(props.Blancs);
+		$("label-nuls").innerHTML="Nuls : "+num2str(props.Nuls);
+		if (props.nom_dep){
+			$("label-departement").innerHTML = props.nom_dep;
+			label_circonscription.parentElement.hidden = true;
+		}
+		if (props.nom_circo){
+			label_circonscription.innerHTML = props.nom_circo;
+			label_circonscription.parentElement.hidden = false;
+			label_commune.innerHTML = " ";
+			label_commune.parentElement.hidden = true;
+		}
+		if (props.nom_commune){
+			label_commune.innerHTML = props.nom_commune;
+			label_commune.parentElement.hidden = false;
+		}
+		if (props.num_bureau && props.nom_bureau){
+			$("label-bureaudevote").innerHTML = "Bureau "+props.num_bureau+" - "+props.nom_bureau;
+			perimetre_str = "<h4>"+props.nom_commune+" : Bureau "+props.num_bureau+"</h4>";
+			perimetre_str +="</br>"+props.nom_bureau+"</br>"+props.adresse_bureau;
+			perimetre_str += "<hr>Périmètre :<p>"+props.perimetre+"</p>";
+			$("perimetre-data-content").innerHTML = perimetre_str;
+		}else{
+			$("label-bureaudevote").innerHTML = "";
+			$("perimetre-data-content").innerHTML = "<h4>Selectionner un bureau de vote ...</h4></br><hr><p></p>";
+		}
+		if (props.Inscrits){
+			$("label-nbinscrits").innerHTML = num2str(props.Inscrits);
+		}
+		if (props.Resultats && props.Resultats[5].pourcentage){
+			var str_nb_voix = "Nombre voix = "+num2str(props.Resultats[5].voix);
+			if (props.Resultats[5].legislatives){
+				str_nb_voix += " (leg : "+num2str(props.Resultats[5].legislatives.voix)+", "+((props.Resultats[5].legislatives.voix-props.Resultats[5].voix)/props.Resultats[5].voix*100).toFixed(0)+"%)";
+			}
+			$("label-resultats-nbvoix").innerHTML = str_nb_voix;
+			$("label-resultats-pourcentage").innerHTML = "Pourcentage = "+props.Resultats[5].pourcentage + "%";
+		}
+
+		var myData = [];
+		for (var i =0; i<12; i++){
+			cand = props.Candidats[i+1];
+			myData.push({title:cand.nom,value:Math.floor(props.Resultats[i].voix/props.Exprimes*1000)/10,color:candidats_colors[i]});
+		}
+		myData.sort(function(a, b){return b.value-a.value});
+		const myChart = new LinerBar("#liner-bar", {
+  			title: "Présidentielle 2022",
+  			items: myData,
+		});
+		myChart.render();
+		$("liner-bar-card").appendChild(div_infos);
+
+
+	};
+	
+	// Adding a Custom Legend Control
+	var legend = L.control({position: 'bottomleft'});
+	const update_legend = function(div_legend){
+		var x = 0;
+		var dx = 0.01;
+		// '#ff0000','#ff7f00','#ffff00',
+		var html = '';
+		var width = 100;
+		while (x < 1) {
+				var color = grad.getAt(1-x);
+				html += '<div style="position:relative;height:10px;display:inline-block;width:'+(dx*width)+'px;overflow:hidden;background:'+color+'">&nbsp;</div>';
+				//if (x==0){html +='<span style="position:absolute;bottom:10px;right:0;">0</span>';};
+				x+=dx;
+
+		};
+		div_legend.innerHTML = html
+		return div_legend;
+	}
+	legend.onAdd = function (map) {
+		var div = L.DomUtil.create('div', 'info legend');
+		div.setAttribute("id", "legend");
+		update_legend(div);
+		return div;
+    	// grades = [0, 5, 7, 10, 13],
+    	// labels = [];
+	    // // loop through our density intervals and generate a label with a colored square for each interval
+		// for (var i = 0; i < grades.length; i++) {
+    	// 	div.innerHTML += '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' + grades[i];
+    	// 	if (grades[i + 1]){
+    	// 		div.innerHTML +='&ndash;' + grades[i + 1] + '<br>';
+    	// 	}else{
+    	// 		div.innerHTML +='+';
+    	// 	};
+		// };
+			// return div;
+	};
+	legend.addTo(map);
+
+	//If Radio Button is clicked.  
+	const update_style_eachLayer= function(layer) {
+		if (layer.feature && layer.feature.properties) {
+			var props = layer.feature.properties;
+			props.color_voix = grad.getAt(props.Resultats[5].classVoix/props.nbTotal);
+			props.color_pourcentages = grad.getAt(props.Resultats[5].classPerc/props.nbTotal);
+			layer.setStyle(getdefaultStyle(layer.feature));
+			} else if (layer instanceof L.LayerGroup) {
+			layer.eachLayer(update_style_eachLayer);
+			}
+	}
+	$("radio-voix").addEventListener('click', function(event) {
+		console.log("radio-voix");
+		repr_colors = "voix";
+		deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
+		allcircos.eachLayer(update_style_eachLayer);
+		allbv.eachLayer(update_style_eachLayer);
+	});
+	$("radio-pourcentages").addEventListener('click', function(event) {
+		console.log("radio-pourcentages");
+		repr_colors = "pourcentages";
+		deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
+		allcircos.eachLayer(update_style_eachLayer);
+		allbv.eachLayer(update_style_eachLayer);
+    });
+    
+    $("myRange").oninput = function(event){
+    	var input_value = parseInt(event.target.value);
+    	$("label-range-best").innerHTML = input_value + "%";
+    	var perc = input_value/100;
+    	if (grad.blocks_sizes[1]>perc){
+    		grad.set_color_place(1, perc);
+    		grad.set_color_place(2, perc);
+    	}else{
+    		grad.set_color_place(2, perc);
+    		grad.set_color_place(1, perc);
+    	}
+    	deptsGEOjsonLayer.eachLayer(update_style_eachLayer);
+		allcircos.eachLayer(update_style_eachLayer);
+		allbv.eachLayer(update_style_eachLayer);
+		update_legend($("legend"));
+    };
+</script>
+<script src="countdown/countdown.js"></script>
 	<!-- mes données -->
 	<!-- mes données -->
 
