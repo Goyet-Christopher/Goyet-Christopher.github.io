@@ -1,3 +1,45 @@
+:root {
+  --sidepannel-content-padding-left: 10px;
+  --sidepannel-content-padding-right: 0px;
+  --sidepannel-content-paddind-top: 1rem;
+  --sidepannel-content-paddind-bottom: 1rem;
+}
+.svg_list {
+  display:block;
+    height:24px;
+    width:24px;
+    background-image: url(./img/list.svg);
+}
+.svg_pin {
+  display:block;
+    height:24px;
+    width:24px;
+    background-image: url(./img/pin.svg);
+}
+.svg_mark {
+  display:block;
+    height:24px;
+    width:24px;
+    background-image: url(./img/mark.svg);
+}
+.svg_bookmarks {
+  display:block;
+    height:24px;
+    width:24px;
+    background-image: url(./img/bookmarks.svg);
+}
+.svg_settings {
+  display:block;
+    height:24px;
+    width:24px;
+    background-image: url(./img/settings.svg);
+}
+.svg_arrowleft {
+  display:inline-block;
+    height:16px;
+    width:16px;
+    background-image: url(./img/arrow-left.svg);
+}
 .sidepanel {
   width: 400px;
   height: 100%;
@@ -68,13 +110,22 @@
 }
 .sidepanel-content-wrapper .sidepanel-content {
   position: absolute;
-  padding: 1rem 1rem;
+  padding-left: var(--sidepannel-content-padding-left);
+  padding-right: var(--sidepannel-content-padding-right);
+  padding-top: var(--sidepannel-content-padding-top);
+  padding-bottom: var(--sidepannel-content-padding-bottom);
+
+  box-sizing: border-box;
+  width: 100%; 
+/*  padding: 1rem 1rem;
+    padding: 10px 0 10px 10px;*/
 }
 .sidepanel-content-wrapper .sidepanel-content .sidepanel-tab-content {
   color: inherit;
   display: none;
 }
 .sidepanel-content-wrapper .sidepanel-content .sidepanel-tab-content.active {
+  width: 100%;
   display: block;
   animation: fade-in 0.36s ease-out;
 }
@@ -476,4 +527,28 @@
   100% {
     opacity: 1;
   }
+}
+.sidepanel-content {
+  /* font-size: 1rem; */
+}
+
+.sidepanel-content h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.sidepanel-content a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #199900;
+  transition: color 0.3s ease-in;
+}
+
+.sidepanel-content a:hover {
+  color: #116600;
+  text-decoration: underline;
+}
+.sidepanel-tab-content-perimetre {
+  white-space: pre-line;
 }
